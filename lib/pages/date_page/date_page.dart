@@ -29,7 +29,7 @@ class _DatePageState extends State<DatePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: AppColors.colorPink2,
+        backgroundColor: AppColors.colorPink,
         elevation: 0,
         actions: [
           PopupMenuButton(
@@ -120,6 +120,11 @@ class BodyDatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String urlM =
+        'https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/241511531_1256987988087163_2217690422918080997_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_ohc=1IjmUD_2KMEAX_Zk9_G&_nc_ht=scontent.fsgn5-6.fna&oh=00_AT-ymoHLzuWHEawQuvofprrBLbI0Cq_1cPNOUkh2QTQxVA&oe=632F32D0';
+
+    String urlN =
+        'https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/287544885_736797004225025_1577202089837034274_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=174925&_nc_ohc=kWn_7be0RIwAX-0PPYm&_nc_ht=scontent.fsgn5-10.fna&oh=00_AT8LxBYBBsg-FGZRyYZx1ET-JbNLFfp5-D0aTJbAunwSMA&oe=632EB73C';
     return Column(
       children: [
         Stack(
@@ -128,12 +133,12 @@ class BodyDatePage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.25,
               width: double.infinity,
               decoration: const BoxDecoration(
-                color: AppColors.colorPink2,
+                color: AppColors.colorPink,
               ),
               child: Column(
                 children: [
                   Text(
-                    DateFormat('dd-MM-yyyy').format(DateTime.parse(date)),
+                    "Ngày quen: ${DateFormat('dd-MM-yyyy').format(DateTime.parse(date))}",
                     style: const TextStyle(
                       fontFamily: "Poppins",
                       fontSize: 12,
@@ -156,24 +161,32 @@ class BodyDatePage extends StatelessWidget {
               left: 0,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  CircleAvatarComponent(
-                    name: 'Quang Minh',
-                    urlImage:
-                        'https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/241511531_1256987988087163_2217690422918080997_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_ohc=1IjmUD_2KMEAX_Zk9_G&_nc_ht=scontent.fsgn5-6.fna&oh=00_AT-ymoHLzuWHEawQuvofprrBLbI0Cq_1cPNOUkh2QTQxVA&oe=632F32D0',
+                children: [
+                  GestureDetector(
+                    onTap: (() {
+                      openDialog(context);
+                    }),
+                    child: CircleAvatarComponent(
+                      name: 'Minh',
+                      urlImage: urlM,
+                    ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Icon(
                       Icons.favorite,
-                      size: 50.0,
-                      color: AppColors.colorPink,
+                      size: 55.0,
+                      color: AppColors.colorLightRed,
                     ),
                   ),
-                  CircleAvatarComponent(
-                    name: 'Diệu Ngân',
-                    urlImage:
-                        'https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/287544885_736797004225025_1577202089837034274_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=174925&_nc_ohc=kWn_7be0RIwAX-0PPYm&_nc_ht=scontent.fsgn5-10.fna&oh=00_AT8LxBYBBsg-FGZRyYZx1ET-JbNLFfp5-D0aTJbAunwSMA&oe=632EB73C',
+                  GestureDetector(
+                    onTap: (() {
+                      openDialog(context);
+                    }),
+                    child: CircleAvatarComponent(
+                      name: 'Ngân',
+                      urlImage: urlN,
+                    ),
                   ),
                 ],
               ),
@@ -183,5 +196,22 @@ class BodyDatePage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  openDialog(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Đổi ảnh'),
+              content: TextFormField(
+                decoration:
+                    const InputDecoration(labelText: 'Nhập link avt vào'),
+              ),
+              actions: [
+                Center(
+                    child: ElevatedButton(
+                        onPressed: () {}, child: const Text('Xác nhận')))
+              ],
+            ));
   }
 }
