@@ -37,20 +37,14 @@ dependencies:
   intl: ^0.17.0
   shared_preferences: ^2.0.15
   flutter_launcher_icons: ^0.10.0
-  flutter_native_splash: ^2.1.6
+
 
 
 dev_dependencies:
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
-
-
-flutter_navite_splash:
-  color:"#FFEB3B"
-  image:"assets/icons/love_birds.png"
-
-
+  
 flutter_icons:
   android: true
   ios: true
@@ -76,8 +70,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+  - assets/icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
