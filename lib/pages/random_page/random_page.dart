@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mutil_app/utils/const/app_colors.dart';
+import 'package:mutil_app/pages/random_page/percent.dart';
+import 'package:mutil_app/pages/random_page/random.dart';
+import '../../utils/const/app_colors.dart';
 
 class RandomPage extends StatefulWidget {
   const RandomPage({Key? key}) : super(key: key);
@@ -11,20 +13,36 @@ class RandomPage extends StatefulWidget {
 class _RandomPageState extends State<RandomPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.colorPink,
-      body: Center(
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            'People in love with the moon learn to live with the distance.',
-            style: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 13,
-            ),
+    return Scaffold(
+        body: GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: DefaultTabController(
+        length: 2,
+        child: SafeArea(
+          child: Column(
+            children: const [
+              TabBar(
+                labelColor: AppColors.colorPink,
+                indicatorColor: AppColors.colorPink,
+                tabs: [
+                  Tab(
+                    icon: Icon(
+                      Icons.shuffle,
+                    ),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.percent_rounded),
+                  )
+                ],
+              ),
+              Expanded(
+                  child: TabBarView(
+                children: [RandomTab(), PercentTab()],
+              ))
+            ],
           ),
         ),
       ),
-    );
+    ));
   }
 }
