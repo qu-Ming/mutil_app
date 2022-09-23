@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mutil_app/utils/const/app_colors.dart';
 
 class TextFieldComponent extends StatelessWidget {
   const TextFieldComponent({
@@ -20,19 +21,20 @@ class TextFieldComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10, top: 5),
+      padding: const EdgeInsets.only(bottom: 5, top: 5),
       child: TextField(
+        cursorColor: AppColors.colorBlack,
+        textAlign: TextAlign.center,
         controller: textEditingController,
         keyboardType: textInputType,
         onChanged: onChanged,
         decoration: InputDecoration(
+          border: InputBorder.none,
           errorText: errorText,
-          border: const OutlineInputBorder(borderSide: BorderSide(width: 1)),
-          disabledBorder:
-              const OutlineInputBorder(borderSide: BorderSide(width: 1)),
-          // labelText: 'Email Address',
           hintText: text,
           hintStyle: TextStyle(color: colorText, fontFamily: 'Poppins'),
+
+          // hintText: text,
         ),
       ),
     );

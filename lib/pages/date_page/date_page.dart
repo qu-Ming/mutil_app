@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 import 'package:mutil_app/components/circle_avatar_component.dart';
 
 import '../../utils/const/app_colors.dart';
@@ -90,7 +91,7 @@ class _DatePageState extends State<DatePage> {
                     //   ),
                     // ),
                     Text(
-                      seeDay == true ? "Ngày bên nhau" : "Năm tháng bên nhau",
+                      seeDay == true ? "Ngày bên nhau" : "Tháng năm bên nhau",
                       style: const TextStyle(
                         fontFamily: "Poppins",
                         fontSize: 12,
@@ -101,7 +102,7 @@ class _DatePageState extends State<DatePage> {
                         onClick();
                       },
                       child: Text(
-                        seeDay == true ? '$dayBeen ngày' : 'aas',
+                        seeDay == true ? '$dayBeen ngày' : '4N 6T 23N',
                         style: const TextStyle(
                             fontFamily: "Poppins",
                             color: AppColors.colorWhite,
@@ -129,13 +130,11 @@ class _DatePageState extends State<DatePage> {
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Icon(
-                        Icons.favorite,
-                        size: 55.0,
-                        color: AppColors.colorLightRed,
-                      ),
-                    ),
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: LikeButton(
+                          size: 60.0,
+                          countPostion: CountPostion.bottom,
+                        )),
                     GestureDetector(
                       onTap: (() {
                         openDialog(context);
@@ -204,8 +203,8 @@ class _DatePageState extends State<DatePage> {
         builder: (BuildContext context) => AlertDialog(
               title: const Text('Đổi ảnh'),
               content: TextFormField(
-                decoration:
-                    const InputDecoration(labelText: 'Nhập link avt vào'),
+                decoration: const InputDecoration(
+                    labelText: 'Nhập đường liên kết ảnh vào'),
               ),
               actions: [
                 Center(

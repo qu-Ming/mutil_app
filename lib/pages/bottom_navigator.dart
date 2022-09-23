@@ -19,7 +19,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(
+            left: 26.0, top: 10.0, right: 26.0, bottom: 20.0),
         child: BottomNavigationBar(
           backgroundColor: AppColors.colorPink,
           selectedItemColor: AppColors.colorDarkPink,
@@ -40,7 +41,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
               label: 'Random',
             ),
           ],
-          onTap: (index) => setState(() => this._currentIndex = index),
+          onTap: (index) => setState(() => _currentIndex = index),
         ),
       ),
       body: body[_currentIndex],
