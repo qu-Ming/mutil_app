@@ -21,11 +21,11 @@ class _DatePageState extends State<DatePage> {
   // DateTime ngayHomNay = DateTime.now();
 
   // DateTime dayNow = DateTime.now();
-  String urlM =
-      'https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/241511531_1256987988087163_2217690422918080997_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_ohc=1IjmUD_2KMEAX_Zk9_G&_nc_ht=scontent.fsgn5-6.fna&oh=00_AT-ymoHLzuWHEawQuvofprrBLbI0Cq_1cPNOUkh2QTQxVA&oe=632F32D0';
+  String assetImageN = 'assets/backgrounds/image.jpeg';
 
-  String urlN =
-      'https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/287544885_736797004225025_1577202089837034274_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=174925&_nc_ohc=kWn_7be0RIwAX-0PPYm&_nc_ht=scontent.fsgn5-10.fna&oh=00_AT8LxBYBBsg-FGZRyYZx1ET-JbNLFfp5-D0aTJbAunwSMA&oe=632EB73C';
+  String assetImageM = 'assets/backgrounds/image2.jpeg';
+
+  String background = 'assets/backgrounds/background.jpg';
   @override
   void initState() {
     super.initState();
@@ -34,124 +34,122 @@ class _DatePageState extends State<DatePage> {
   }
 
   bool seeDay = true;
-
+  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: AppColors.colorPink,
-        elevation: 0,
-        actions: const [
-          // PopupMenuButton(
-          //     itemBuilder: (context) => [
-          //           PopupMenuItem(
-          //             child: InkWell(
-          //                 onTap: () {
-          //                   openCalender();
-          //                 },
-          //                 child: const Text('Chọn ngày kỷ niệm')),
-          //           ),
-          //           PopupMenuItem(
-          //             child: InkWell(
-          //                 onTap: () {
-          //                   Navigator.pop(context);
-          //                 },
-          //                 child: const Text('Điều chỉnh trang')),
-          //           ),
-          //           PopupMenuItem(
-          //             child: InkWell(
-          //                 onTap: () {
-          //                   deleteDate();
-          //                   Navigator.pop(context);
-          //                 },
-          //                 child: const Text('Đặt lại ngày')),
-          //           ),
-          //         ])
-        ],
-      ),
       body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-        children: [
-          Stack(
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.22,
-                width: double.infinity,
-                decoration: const BoxDecoration(
+              Stack(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(background), fit: BoxFit.cover)),
+                    child: Column(
+                      children: [
+                        // Text(
+                        //   "Ngày quen: ${DateFormat('dd-MM-yyyy').format(DateTime.parse(date))}",
+                        //   style: const TextStyle(
+                        //     fontFamily: "Poppins",
+                        //     fontSize: 12,
+                        //   ),
+                        // ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top: 100.0),
+                          child: Text(
+                            seeDay == true
+                                ? "Ngày bên nhau"
+                                : "Tháng năm bên nhau",
+                            style: const TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            onClick();
+                          },
+                          child: Text(
+                            seeDay == true ? '$dayBeen ngày' : '4N 6T 23N',
+                            style: const TextStyle(
+                                fontFamily: "Poppins",
+                                color: AppColors.colorPink,
+                                fontSize: 50.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: -50,
+                    right: 0,
+                    left: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (() {
+                            openDialog(context);
+                          }),
+                          child: CircleAvatarComponent(
+                            name: 'Ngân',
+                            assetImage: assetImageM,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: LikeButton(
+                            size: 40.0,
+                            countPostion: CountPostion.bottom,
+                            likeBuilder: (isLiked) {
+                              final color = isLiked
+                                  ? AppColors.colorPink
+                                  : AppColors.colorGrey2;
+
+                              return Icon(
+                                Icons.favorite,
+                                color: color,
+                                size: 40.0,
+                              );
+                            },
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (() {
+                            openDialog(context);
+                          }),
+                          child: CircleAvatarComponent(
+                            name: 'Minh',
+                            assetImage: assetImageN,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                clipBehavior: Clip.none,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 95.0, left: 50.0, right: 50.0),
+                child: LinearProgressIndicator(
                   color: AppColors.colorPink,
+                  backgroundColor: AppColors.colorGrey,
+                  value: 0.7,
                 ),
-                child: Column(
-                  children: [
-                    // Text(
-                    //   "Ngày quen: ${DateFormat('dd-MM-yyyy').format(DateTime.parse(date))}",
-                    //   style: const TextStyle(
-                    //     fontFamily: "Poppins",
-                    //     fontSize: 12,
-                    //   ),
-                    // ),
-                    Text(
-                      seeDay == true ? "Ngày bên nhau" : "Tháng năm bên nhau",
-                      style: const TextStyle(
-                        fontFamily: "Poppins",
-                        fontSize: 12,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        onClick();
-                      },
-                      child: Text(
-                        seeDay == true ? '$dayBeen ngày' : '4N 6T 23N',
-                        style: const TextStyle(
-                            fontFamily: "Poppins",
-                            color: AppColors.colorWhite,
-                            fontSize: 50.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: -50,
-                right: 0,
-                left: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: (() {
-                        openDialog(context);
-                      }),
-                      child: CircleAvatarComponent(
-                        name: 'Minh',
-                        urlImage: urlM,
-                      ),
-                    ),
-                    const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: LikeButton(
-                          size: 60.0,
-                          countPostion: CountPostion.bottom,
-                        )),
-                    GestureDetector(
-                      onTap: (() {
-                        openDialog(context);
-                      }),
-                      child: CircleAvatarComponent(
-                        name: 'Ngân',
-                        urlImage: urlN,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              )
             ],
-            clipBehavior: Clip.none,
           ),
-        ],
-      )),
+        ),
+      ),
     );
   }
 

@@ -22,8 +22,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         padding: const EdgeInsets.only(
             left: 26.0, top: 10.0, right: 26.0, bottom: 20.0),
         child: BottomNavigationBar(
-          backgroundColor: AppColors.colorPink,
-          selectedItemColor: AppColors.colorDarkPink,
+          selectedItemColor: AppColors.colorPink,
           currentIndex: _currentIndex,
           items: const [
             BottomNavigationBarItem(

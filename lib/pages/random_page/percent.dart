@@ -25,6 +25,7 @@ class _PercentTabState extends State<PercentTab> {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextComponent(
               colorText: AppColors.colorPink,
@@ -35,7 +36,7 @@ class _PercentTabState extends State<PercentTab> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: AppColors.backGourndColor,
+                color: AppColors.colorPink,
               ),
               margin:
                   const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10.0),
@@ -48,7 +49,7 @@ class _PercentTabState extends State<PercentTab> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: AppColors.backGourndColor,
+                color: AppColors.colorPink,
               ),
               margin:
                   const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10.0),
