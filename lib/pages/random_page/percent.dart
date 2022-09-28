@@ -23,19 +23,20 @@ class _PercentTabState extends State<PercentTab> {
     String firstNum = 'Nhập số đầu';
     String lastNum = 'Nhập số cuối';
     return Scaffold(
+      backgroundColor: AppColors.colorPink3,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextComponent(
-              colorText: AppColors.colorPink,
+              colorText: AppColors.colorWhite,
               text: title,
               textSize: AppDimens.text_size_28,
               fontWeight: FontWeight.bold,
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
                 color: AppColors.colorPink,
               ),
               margin:
@@ -48,7 +49,7 @@ class _PercentTabState extends State<PercentTab> {
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
                 color: AppColors.colorPink,
               ),
               margin:
@@ -78,8 +79,9 @@ class _PercentTabState extends State<PercentTab> {
                 height: 40.0,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: AppColors.colorBlue,
-                    borderRadius: BorderRadius.circular(12)),
+                  color: AppColors.colorBlue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: const Center(
                   child: TextComponent(
                     textSize: AppDimens.text_size_20,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:mutil_app/components/circle_avatar_component.dart';
+import 'package:mutil_app/components/text_component.dart';
+import 'package:mutil_app/utils/const/app_dimens.dart';
 
 import '../../utils/const/app_colors.dart';
 
@@ -15,22 +17,15 @@ class _DatePageState extends State<DatePage> {
   String date = '${DateTime.parse('2017-12-09')}';
   int? dayBeen;
 
-  // String formatDay = '';
-  // DateTime? pickDate;
-
-  // DateTime ngayHomNay = DateTime.now();
-
-  // DateTime dayNow = DateTime.now();
   String assetImageN = 'assets/backgrounds/image.jpeg';
 
-  String assetImageM = 'assets/backgrounds/image2.jpeg';
+  String assetImageM = 'assets/backgrounds/image2.JPEG';
 
   String background = 'assets/backgrounds/background.jpg';
   @override
   void initState() {
     super.initState();
     readDay();
-    // readDate();
   }
 
   bool seeDay = true;
@@ -53,16 +48,8 @@ class _DatePageState extends State<DatePage> {
                             image: AssetImage(background), fit: BoxFit.cover)),
                     child: Column(
                       children: [
-                        // Text(
-                        //   "Ngày quen: ${DateFormat('dd-MM-yyyy').format(DateTime.parse(date))}",
-                        //   style: const TextStyle(
-                        //     fontFamily: "Poppins",
-                        //     fontSize: 12,
-                        //   ),
-                        // ),
-
                         Padding(
-                          padding: const EdgeInsets.only(top: 100.0),
+                          padding: const EdgeInsets.only(top: 95.0),
                           child: Text(
                             seeDay == true
                                 ? "Ngày bên nhau"
@@ -112,7 +99,7 @@ class _DatePageState extends State<DatePage> {
                             countPostion: CountPostion.bottom,
                             likeBuilder: (isLiked) {
                               final color = isLiked
-                                  ? AppColors.colorPink
+                                  ? AppColors.colorLightRed
                                   : AppColors.colorGrey2;
 
                               return Icon(
@@ -139,13 +126,29 @@ class _DatePageState extends State<DatePage> {
                 clipBehavior: Clip.none,
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 95.0, left: 50.0, right: 50.0),
+                padding: EdgeInsets.only(top: 95.0, left: 60.0, right: 60.0),
                 child: LinearProgressIndicator(
-                  color: AppColors.colorPink,
+                  color: AppColors.colorLightRed,
                   backgroundColor: AppColors.colorGrey,
                   value: 0.7,
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    TextComponent(
+                      text: '1700',
+                      textSize: AppDimens.text_size_16,
+                    ),
+                    TextComponent(
+                      text: '1800',
+                      textSize: AppDimens.text_size_16,
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

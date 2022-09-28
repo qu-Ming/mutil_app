@@ -25,19 +25,20 @@ class _RandomState extends State<RandomTab> {
     String firstNum = 'Nhập số đầu';
     String lastNum = 'Nhập số cuối';
     return Scaffold(
+      backgroundColor: AppColors.appBarColor,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextComponent(
-              colorText: AppColors.appBarColor,
+              colorText: AppColors.colorWhite,
               text: title,
               textSize: AppDimens.text_size_28,
               fontWeight: FontWeight.bold,
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
                 color: AppColors.backGourndColor,
               ),
               margin:
@@ -50,7 +51,7 @@ class _RandomState extends State<RandomTab> {
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
                 color: AppColors.backGourndColor,
               ),
               margin:
