@@ -118,4 +118,15 @@ class _RandomState extends State<RandomTab> {
       title = ((min + Random().nextInt((max + 1) - min))).toString();
     }
   }
+  //  void clickedRandom(int min, int max) {
+  //   if (min < 0 || max < 0) {
+  //     title = 'Không chọn số âm';
+  //   } else if (max - min < 0) {
+  //     title = 'Số đầu bự hơn số cuối';
+  //   } else if (min > 10000 || max > 10000) {
+  //     title = 'Số bự quá';
+  //   } else {
+  //     title = ((min + Random().nextInt((max + 1) - min))).toString();
+  //   }
+  // }
 }
