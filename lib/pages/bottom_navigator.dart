@@ -34,7 +34,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
             label: 'Date',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shuffle_outlined),
+            icon: Icon(Icons.calculate),
             label: 'Random',
           ),
         ],

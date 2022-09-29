@@ -23,75 +23,83 @@ class _PercentTabState extends State<PercentTab> {
     String firstNum = 'Nhập số đầu';
     String lastNum = 'Nhập số cuối';
     return Scaffold(
-      backgroundColor: AppColors.colorPink3,
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextComponent(
-              colorText: AppColors.colorWhite,
-              text: title,
-              textSize: AppDimens.text_size_28,
-              fontWeight: FontWeight.bold,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColors.colorPink,
-              ),
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10.0),
-              child: TextFieldComponent(
-                textEditingController: fNum,
-                text: firstNum.isEmpty ? 'Lỗi' : firstNum,
-                textInputType: TextInputType.number,
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColors.colorPink,
-              ),
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10.0),
-              child: TextFieldComponent(
-                textEditingController: lNum,
-                text: lastNum,
-                textInputType: TextInputType.number,
-              ),
-            ),
-            GestureDetector(
-              onTap: (() {
-                setState(
-                  () {
-                    if (fNum.text.isEmpty || lNum.text.isEmpty) {
-                      title = 'Hông bỏ trống';
-                    } else {
-                      clickedPercent(
-                          double.parse(fNum.text), double.parse(lNum.text));
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    }
-                  },
-                );
-              }),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 40.0),
-                height: 40.0,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 250.0,
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppColors.colorBlue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Center(
+                decoration: const BoxDecoration(
+                    color: AppColors.appBarColor,
+                    borderRadius:
+                        BorderRadius.only(bottomRight: Radius.circular(30))),
+                child: Center(
                   child: TextComponent(
-                    textSize: AppDimens.text_size_20,
-                    text: 'Xác nhận',
                     colorText: AppColors.colorWhite,
+                    text: title,
+                    textSize: AppDimens.text_size_28,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 30.0,
+                  left: 50.0,
+                  right: 50.0,
+                ),
+                child: TextFieldComponent(
+                  textEditingController: fNum,
+                  text: firstNum.isEmpty ? 'Lỗi' : firstNum,
+                  textInputType: TextInputType.number,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 50.0,
+                  right: 50.0,
+                ),
+                child: TextFieldComponent(
+                  textEditingController: lNum,
+                  text: lastNum,
+                  textInputType: TextInputType.number,
+                ),
+              ),
+              GestureDetector(
+                onTap: (() {
+                  setState(
+                    () {
+                      if (fNum.text.isEmpty || lNum.text.isEmpty) {
+                        title = 'Hông bỏ trống';
+                      } else {
+                        clickedPercent(
+                            double.parse(fNum.text), double.parse(lNum.text));
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      }
+                    },
+                  );
+                }),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 50.0, vertical: 20.0),
+                  height: 40.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColors.colorBlue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: TextComponent(
+                      textSize: AppDimens.text_size_20,
+                      text: 'Xác nhận',
+                      colorText: AppColors.colorWhite,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

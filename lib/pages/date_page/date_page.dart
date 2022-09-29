@@ -14,8 +14,15 @@ class DatePage extends StatefulWidget {
 }
 
 class _DatePageState extends State<DatePage> {
-  String date = '${DateTime.parse('2017-12-09')}';
-  int? dayBeen;
+  String dayBeenTogether = '';
+  String sodau = '';
+  String socuoi = '';
+
+  double? distance;
+
+  int? nam;
+  int? thang;
+  int? ngay;
 
   String assetImageN = 'assets/backgrounds/image.jpeg';
 
@@ -65,7 +72,9 @@ class _DatePageState extends State<DatePage> {
                             onClick();
                           },
                           child: Text(
-                            seeDay == true ? '$dayBeen ngày' : '4N 6T 23N',
+                            seeDay == true
+                                ? '$dayBeenTogether ngày'
+                                : '${nam}N ${thang}T ${ngay}N',
                             style: const TextStyle(
                                 fontFamily: "Poppins",
                                 color: AppColors.colorPink,
@@ -125,27 +134,39 @@ class _DatePageState extends State<DatePage> {
                 ],
                 clipBehavior: Clip.none,
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 95.0, left: 60.0, right: 60.0),
-                child: LinearProgressIndicator(
-                  color: AppColors.colorLightRed,
-                  backgroundColor: AppColors.colorGrey,
-                  value: 0.7,
-                ),
-              ),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.only(top: 95.0, left: 60.0, right: 60.0),
+              //   child: LinearProgressIndicator(
+              //     color: AppColors.colorLightRed,
+              //     backgroundColor: AppColors.colorGrey,
+              //     value: distance,
+              //   ),
+              // ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.fromLTRB(10, 90, 10, 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     TextComponent(
-                      text: '1700',
-                      textSize: AppDimens.text_size_16,
+                      text: sodau,
+                      colorText: AppColors.colorPink,
+                      textSize: AppDimens.text_size_14,
+                    ),
+                    SizedBox(
+                      height: 7,
+                      width: 250,
+                      child: LinearProgressIndicator(
+                        color: AppColors.colorLightRed,
+                        backgroundColor: AppColors.colorGrey,
+                        value: distance,
+                      ),
                     ),
                     TextComponent(
-                      text: '1800',
-                      textSize: AppDimens.text_size_16,
-                    )
+                      text: socuoi,
+                      textSize: AppDimens.text_size_14,
+                      colorText: AppColors.colorPink,
+                    ),
                   ],
                 ),
               ),
@@ -156,68 +177,62 @@ class _DatePageState extends State<DatePage> {
     );
   }
 
-  // Future readDate() async {
-  //   final prefs = await SharedPreferences.getInstance();
-
-  //   setState(() {
-  //     date = prefs.getString('number_key') ?? date;
-  //   });
-  // }
-
-  // Future openCalender() async {
-  //   pickDate = await showDatePicker(
-  //       context: context,
-  //       initialDate: DateTime.now(),
-  //       firstDate: DateTime(2000),
-  //       lastDate: DateTime.now());
-  //   final prefs = await SharedPreferences.getInstance();
-
-  //   setState(() {
-  //     if (pickDate != null) {
-  //       prefs.clear();
-  //       date = (prefs.getString('number_key') ?? '') + '$pickDate';
-  //       dayBeen = DateTime.now().difference(DateTime.parse(date)).inDays;
-  //       prefs.setString('number_key', pickDate.toString());
-  //     } else {
-  //       print('Close');
-  //     }
-  //     Navigator.pop(context);
-  //   });
-  // }
-
-  // Future deleteDate() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   await preferences.remove('number_key');
-  //   setState(() {
-  //     date = '${DateTime.parse('2000-12-17')}';
-  //     dayBeen = 0;
-  //   });
-  // }
-
   Future readDay() async {
+    String date = '${DateTime.parse('2017-12-09')}';
+    int? dayBeen;
+
     dayBeen = DateTime.now().difference(DateTime.parse(date)).inDays;
+
+    int nghin = ((dayBeen % 10000) / 1000).floor();
+    int tram = ((dayBeen % 1000) / 100).floor();
+    int chuc = ((dayBeen % 100) / 10).floor();
+    int donVi = ((dayBeen % 10)).floor();
+
+    int chucInt = dayBeen % 100;
+
+    // if (nghin == 0) {
+    //   dayBeenTogether = '$tram$chuc$donVi';
+
+    //   sodau = '$tram${chuc = 0}${donVi = 0}';
+
+    //   socuoi = '${tram + 1}${chuc = 0}${donVi = 0}';
+    // } else {
+    dayBeenTogether = '$nghin$tram$chuc$donVi';
+
+    sodau = '$nghin$tram${chuc = 0}${donVi = 0}';
+
+    socuoi = '$nghin${tram + 1}${chuc = 0}${donVi = 0}';
+    // }
+    distance = chucInt / (int.parse(socuoi) - int.parse(sodau));
+
+    nam = (dayBeen / 365).floor();
+    thang = ((dayBeen % 365) / 30).floor();
+    ngay = ((dayBeen % 365) % 30);
   }
 
   openDialog(context) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-              title: const Text('Đổi ảnh'),
-              content: TextFormField(
-                decoration: const InputDecoration(
-                    labelText: 'Nhập đường liên kết ảnh vào'),
-              ),
-              actions: [
-                Center(
-                    child: ElevatedButton(
-                        onPressed: () {}, child: const Text('Xác nhận')))
-              ],
-            ));
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Đổi ảnh'),
+        content: TextFormField(
+          decoration:
+              const InputDecoration(labelText: 'Nhập đường liên kết ảnh vào'),
+        ),
+        actions: [
+          Center(
+              child: ElevatedButton(
+                  onPressed: () {}, child: const Text('Xác nhận')))
+        ],
+      ),
+    );
   }
 
   onClick() {
-    setState(() {
-      seeDay = !seeDay;
-    });
+    setState(
+      () {
+        seeDay = !seeDay;
+      },
+    );
   }
 }
