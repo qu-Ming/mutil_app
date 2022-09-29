@@ -24,6 +24,7 @@ class _RandomPageState extends State<RandomPage> {
               TabBar(
                 labelColor: AppColors.colorPink,
                 indicatorColor: AppColors.colorPink,
+                unselectedLabelColor: AppColors.colorGrey2,
                 tabs: [
                   Tab(
                     icon: Icon(
@@ -31,7 +32,7 @@ class _RandomPageState extends State<RandomPage> {
                     ),
                   ),
                   Tab(
-                    icon: Icon(Icons.percent_rounded),
+                    icon: Icon(Icons.calculate),
                   )
                 ],
               ),

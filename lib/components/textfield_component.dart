@@ -24,12 +24,11 @@ class TextFieldComponent extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 5, top: 5),
       child: TextField(
         cursorColor: AppColors.colorBlack,
-        textAlign: TextAlign.center,
         controller: textEditingController,
         keyboardType: textInputType,
         onChanged: onChanged,
         decoration: InputDecoration(
-          border: InputBorder.none,
+          border: const OutlineInputBorder(),
           errorText: errorText,
           hintText: text,
           hintStyle: TextStyle(color: colorText, fontFamily: 'Poppins'),
