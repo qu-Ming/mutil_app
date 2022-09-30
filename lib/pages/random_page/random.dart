@@ -33,7 +33,7 @@ class _RandomState extends State<RandomTab> {
                 height: 250.0,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                    color: AppColors.colorPink2,
+                    color: AppColors.colorPink,
                     borderRadius:
                         BorderRadius.only(bottomLeft: Radius.circular(30))),
                 child: Center(
@@ -118,15 +118,4 @@ class _RandomState extends State<RandomTab> {
       title = ((min + Random().nextInt((max + 1) - min))).toString();
     }
   }
-  //  void clickedRandom(int min, int max) {
-  //   if (min < 0 || max < 0) {
-  //     title = 'Không chọn số âm';
-  //   } else if (max - min < 0) {
-  //     title = 'Số đầu bự hơn số cuối';
-  //   } else if (min > 10000 || max > 10000) {
-  //     title = 'Số bự quá';
-  //   } else {
-  //     title = ((min + Random().nextInt((max + 1) - min))).toString();
-  //   }
-  // }
 }

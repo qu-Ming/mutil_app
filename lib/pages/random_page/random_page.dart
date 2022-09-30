@@ -23,7 +23,7 @@ class _RandomPageState extends State<RandomPage> {
             children: const [
               TabBar(
                 labelColor: AppColors.colorPink,
-                indicatorColor: AppColors.colorPink,
+                indicatorColor: AppColors.colorGrey2,
                 unselectedLabelColor: AppColors.colorGrey2,
                 tabs: [
                   Tab(

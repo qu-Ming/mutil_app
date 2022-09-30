@@ -28,7 +28,7 @@ class _DatePageState extends State<DatePage> {
 
   String assetImageM = 'assets/backgrounds/image2.JPEG';
 
-  String background = 'assets/backgrounds/background.jpg';
+  String background = 'assets/backgrounds/bglo.jpg';
   @override
   void initState() {
     super.initState();
@@ -48,7 +48,7 @@ class _DatePageState extends State<DatePage> {
               Stack(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.65,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         image: DecorationImage(
@@ -56,7 +56,7 @@ class _DatePageState extends State<DatePage> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 95.0),
+                          padding: const EdgeInsets.only(top: 30.0),
                           child: Text(
                             seeDay == true
                                 ? "Ngày bên nhau"
@@ -77,7 +77,7 @@ class _DatePageState extends State<DatePage> {
                                 : '${nam}N ${thang}T ${ngay}N',
                             style: const TextStyle(
                                 fontFamily: "Poppins",
-                                color: AppColors.colorPink,
+                                color: AppColors.colorWhite,
                                 fontSize: 50.0,
                                 fontWeight: FontWeight.bold),
                           ),
