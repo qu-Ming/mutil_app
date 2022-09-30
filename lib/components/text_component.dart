@@ -24,7 +24,7 @@ class TextComponent extends StatelessWidget {
       style: TextStyle(
           color: colorText,
           fontSize: textSize,
-          fontFamily: 'Poppins',
+          fontFamily: 'Montserrat',
           fontWeight: fontWeight),
     );
   }

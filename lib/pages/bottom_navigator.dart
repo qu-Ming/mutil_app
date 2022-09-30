@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mutil_app/pages/chat_page/chat_page.dart';
 import 'package:mutil_app/pages/date_page/date_page.dart';
 import 'package:mutil_app/pages/random_page/random_page.dart';
+import 'package:mutil_app/pages/todo_page/todo_page.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 
 class BottomNavigator extends StatefulWidget {
@@ -13,7 +13,7 @@ class BottomNavigator extends StatefulWidget {
 
 class _BottomNavigatorState extends State<BottomNavigator> {
   int _currentIndex = 1;
-  List<Widget> body = const [ChatPage(), DatePage(), RandomPage()];
+  List<Widget> body = const [TodoPage(), DatePage(), RandomPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         currentIndex: _currentIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Messege',
+            icon: Icon(Icons.description),
+            label: 'Note',
           ),
           BottomNavigationBarItem(
             icon: Icon(

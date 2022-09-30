@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 
@@ -33,10 +34,10 @@ class CircleAvatarComponent extends StatelessWidget {
         Text(
           name,
           style: const TextStyle(
-              fontFamily: "Poppins",
-              fontWeight: FontWeight.w600,
-              color: AppColors.colorPink,
-              fontStyle: FontStyle.italic),
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.w600,
+            color: AppColors.colorPink,
+          ),
         )
       ],
     );
