@@ -10,6 +10,10 @@ class ChatPage extends StatefulWidget {
 class _ChatPagePageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return SafeArea(
+      child: Scaffold(
+        body: ElevatedButton(onPressed: () {}, child: const Text('data')),
+      ),
+    );
   }
 }
