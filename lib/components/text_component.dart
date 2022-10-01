@@ -21,6 +21,7 @@ class TextComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           color: colorText,
           fontSize: textSize,
