@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mutil_app/components/text_component.dart';
-import 'package:mutil_app/components/textfield_component.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 import 'package:mutil_app/utils/const/app_dimens.dart';
 
@@ -19,29 +17,55 @@ class _AddTodoPageState extends State<AddTodoPage> {
     return Scaffold(
       backgroundColor: AppColors.colorPinkBG,
       appBar: AppBar(
+        title: const Text(
+          'Tạo ghi chú',
+          style: TextStyle(fontFamily: "Montserrat"),
+        ),
         backgroundColor: AppColors.colorPink,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.chevron_left)),
-      ),
-      body: Column(
-        children: [
-          const Align(
-            alignment: Alignment.topLeft,
-            child: TextComponent(
-              text: 'Create a task\nTodo',
-              colorText: AppColors.colorPink,
-              fontWeight: FontWeight.bold,
-              textSize: AppDimens.text_size_20,
-            ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.check),
           ),
-          TextFieldComponent(
-              text: 'Tieu de', textEditingController: titleController),
-          TextFieldComponent(
-              text: 'Noi dung', textEditingController: titleController),
         ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Nhập tiêu đề',
+                    hintStyle: TextStyle(
+                        fontSize: AppDimens.text_size_18,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+              TextFormField(
+                maxLines: null,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Nội dung',
+                  hintStyle: TextStyle(
+                    fontSize: AppDimens.text_size_14,
+                    fontFamily: 'Montserrat',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
