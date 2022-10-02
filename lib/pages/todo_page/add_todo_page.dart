@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 import 'package:mutil_app/utils/const/app_dimens.dart';
@@ -11,6 +12,7 @@ class AddTodoPage extends StatefulWidget {
 
 class _AddTodoPageState extends State<AddTodoPage> {
   TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,15 @@ class _AddTodoPageState extends State<AddTodoPage> {
             icon: const Icon(Icons.chevron_left)),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              FirebaseFirestore.instance.collection("Todo").add({
+                "Content": contentController.text,
+                "Title": titleController.text,
+              }).then((value) {
+                print("ID " + value.id);
+              }).catchError((onError) => print("Error" + onError));
+              Navigator.pop(context);
+            },
             icon: const Icon(Icons.check),
           ),
         ],
@@ -42,6 +52,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: TextFormField(
+                  controller: titleController,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Nhập tiêu đề',
@@ -53,6 +64,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 ),
               ),
               TextFormField(
+                controller: contentController,
                 maxLines: null,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
