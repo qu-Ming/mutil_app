@@ -162,7 +162,7 @@ class _TodoPagePageState extends State<TodoPage> {
                                               width: 1.0,
                                               color: AppColors.colorPink),
                                           activeColor: AppColors.colorPinkCheck,
-                                          value: documents["Check"],
+                                          value: documents["Check"] ?? false,
                                           onChanged: (bool? newValue) {},
                                         ),
                                       )
