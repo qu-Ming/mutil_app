@@ -30,7 +30,7 @@ class _RandomState extends State<RandomTab> {
           child: Column(
             children: [
               Container(
-                height: 250.0,
+                height: 100.0,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     color: AppColors.colorPink,
@@ -89,7 +89,7 @@ class _RandomState extends State<RandomTab> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: AppColors.colorBlue,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   child: const Center(
                     child: TextComponent(

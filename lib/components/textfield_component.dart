@@ -28,7 +28,6 @@ class TextFieldComponent extends StatelessWidget {
         keyboardType: textInputType,
         onChanged: onChanged,
         decoration: InputDecoration(
-          border: const OutlineInputBorder(),
           errorText: errorText,
           hintText: text,
           hintStyle: TextStyle(color: colorText, fontFamily: 'Poppins'),

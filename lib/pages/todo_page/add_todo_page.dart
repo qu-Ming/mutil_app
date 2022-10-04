@@ -61,6 +61,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 padding: const EdgeInsets.only(top: 10.0),
                 child: TextFormField(
                   controller: titleController,
+                  style: const TextStyle(
+                      fontSize: AppDimens.text_size_18,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w600),
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Nhập tiêu đề',
@@ -72,6 +76,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 ),
               ),
               TextFormField(
+                style: const TextStyle(
+                  fontSize: AppDimens.text_size_14,
+                  fontFamily: 'Montserrat',
+                ),
                 controller: contentController,
                 maxLines: null,
                 decoration: const InputDecoration(
