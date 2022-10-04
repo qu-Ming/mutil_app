@@ -19,6 +19,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
     return Scaffold(
       backgroundColor: AppColors.colorPinkBG,
       appBar: AppBar(
+        elevation: 1,
         title: const Text(
           'Tạo ghi chú',
           style: TextStyle(fontFamily: "Montserrat"),
@@ -32,12 +33,19 @@ class _AddTodoPageState extends State<AddTodoPage> {
         actions: [
           IconButton(
             onPressed: () async {
-              FirebaseFirestore.instance.collection("Todo").add({
-                "Content": contentController.text,
-                "Title": titleController.text,
-              }).then((value) {
-                print("ID " + value.id);
-              }).catchError((onError) => print("Error" + onError));
+              FirebaseFirestore.instance
+                  .collection("Todo")
+                  .add({
+                    "Content": contentController.text,
+                    "Title": titleController.text,
+                    "Check": false,
+                    "Time": Timestamp.now(),
+                  })
+                  .then((value) {})
+                  .catchError(
+                    // ignore: avoid_print, invalid_return_type_for_catch_error
+                    (onError) => print(onError.toString()),
+                  );
               Navigator.pop(context);
             },
             icon: const Icon(Icons.check),
