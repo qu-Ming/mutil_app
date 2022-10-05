@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mutil_app/utils/const/my_behavior.dart';
 
 import '../../components/text_component.dart';
 import '../../components/textfield_component.dart';
@@ -28,7 +29,7 @@ class _PercentTabState extends State<PercentTab> {
           child: Column(
             children: [
               Container(
-                height: 250.0,
+                height: 100.0,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     color: AppColors.appBarColor,
@@ -87,7 +88,7 @@ class _PercentTabState extends State<PercentTab> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: AppColors.colorBlue,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   child: const Center(
                     child: TextComponent(

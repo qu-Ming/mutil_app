@@ -120,6 +120,7 @@ class _TodoPagePageState extends State<TodoPage> {
                                                   const EdgeInsets.symmetric(
                                                       vertical: 8.0),
                                               child: TextComponent(
+                                                maxLines: 1,
                                                 text: documents["Content"],
                                                 textSize:
                                                     AppDimens.text_size_12,
