@@ -15,13 +15,13 @@ class RandomTab extends StatefulWidget {
 }
 
 String title = 'Random';
+int number = 0;
 
 class _RandomState extends State<RandomTab> {
   @override
   Widget build(BuildContext context) {
     TextEditingController fNum = TextEditingController();
     TextEditingController lNum = TextEditingController();
-
     String firstNum = 'Nhập số đầu';
     String lastNum = 'Nhập số cuối';
     return Scaffold(
@@ -99,7 +99,58 @@ class _RandomState extends State<RandomTab> {
                     ),
                   ),
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 100),
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    );
+                  },
+                  child: Text(
+                    number.toString(),
+                    key: ValueKey(number),
+                    style: const TextStyle(
+                        color: AppColors.colorBlue,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Montserrat"),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    onPress();
+                  });
+                },
+                child: const TextComponent(
+                  text: '+',
+                  colorText: AppColors.colorWhite,
+                  fontWeight: FontWeight.w500,
+                  textSize: 15.0,
+                ),
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppColors.colorGrey2)),
+                onPressed: () {
+                  setState(() {
+                    onPress1();
+                  });
+                },
+                child: const TextComponent(
+                  text: '-',
+                  colorText: AppColors.colorWhite,
+                  fontWeight: FontWeight.w500,
+                  textSize: 15.0,
+                ),
+              ),
             ],
           ),
         ),
@@ -117,5 +168,31 @@ class _RandomState extends State<RandomTab> {
     } else {
       title = ((min + Random().nextInt((max + 1) - min))).toString();
     }
+  }
+}
+
+onPress() {
+  number = number + 1;
+  if (number == 50) {
+    title = 'Nice';
+  } else if (number == 100) {
+    title = 'Wow';
+  } else if (number == 200) {
+    title = 'Ghê ghê ghê';
+  } else if (number == 500) {
+    title = 'Ông hoàng rảnh rỗi';
+  } else if (number == 750) {
+    title = 'Huyền thoại là đây';
+  } else if (number == 912) {
+    title = 'I love you';
+  } else if (number == 1000) {
+    title = 'Moazzzzzzzzzz';
+  }
+}
+
+onPress1() {
+  number = number - 1;
+  if (number == -20) {
+    title = 'Lối đi riêng';
   }
 }
