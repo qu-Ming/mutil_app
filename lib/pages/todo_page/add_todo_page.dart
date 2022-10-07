@@ -39,7 +39,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     "Content": contentController.text,
                     "Title": titleController.text,
                     "Check": false,
-                    "Time": Timestamp.now(),
+                    "Time": DateTime.now(),
                   })
                   .then((value) {})
                   .catchError(

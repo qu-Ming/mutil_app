@@ -48,7 +48,7 @@ class _TodoPagePageState extends State<TodoPage> {
                         const Align(
                           alignment: Alignment.topLeft,
                           child: TextComponent(
-                            text: 'Những việc sẽ làm\ncùng nhau',
+                            text: 'Ghi chú những việc sẽ làm\ncùng nhau',
                             fontWeight: FontWeight.bold,
                             textSize: 20.0,
                             colorText: AppColors.colorPink,
