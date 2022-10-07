@@ -93,84 +93,93 @@ class _TodoPagePageState extends State<TodoPage> {
 
                           //item
 
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10.0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      child: Column(
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: TextComponent(
-                                              text: documents["Title"],
-                                              fontWeight: FontWeight.w600,
-                                              textSize: AppDimens.text_size_16,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 8.0),
-                                              child: TextComponent(
-                                                maxLines: 1,
-                                                text: documents["Content"],
-                                                textSize:
-                                                    AppDimens.text_size_12,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Icon(
-                                      Icons.chevron_right,
-                                      size: 30.0,
-                                    )
-                                  ],
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: AppColors.colorGreyBG,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  height: 30.0,
-                                  child: Row(
+                          return InkWell(
+                            onTap: () {
+                              print(documents);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10.0),
+                              child: Column(
+                                children: [
+                                  Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Expanded(
-                                        flex: 9,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10.0),
-                                          child: TextComponent(
-                                            text: 'Ngày 9 Tháng 12 Năm 2017',
-                                            colorText: AppColors.colorGreyText,
-                                          ),
+                                      Flexible(
+                                        child: Column(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: TextComponent(
+                                                text: documents["Title"],
+                                                fontWeight: FontWeight.w600,
+                                                textSize:
+                                                    AppDimens.text_size_16,
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 8.0),
+                                                child: TextComponent(
+                                                  maxLines: 1,
+                                                  text: documents["Content"],
+                                                  textSize:
+                                                      AppDimens.text_size_12,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Checkbox(
-                                          side: const BorderSide(
-                                              width: 1.0,
-                                              color: AppColors.colorPink),
-                                          activeColor: AppColors.colorPinkCheck,
-                                          value: documents["Check"] ?? false,
-                                          onChanged: (bool? newValue) {},
-                                        ),
+                                      const Icon(
+                                        Icons.chevron_right,
+                                        size: 30.0,
                                       )
                                     ],
                                   ),
-                                ),
-                              ],
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: AppColors.colorGreyBG,
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    height: 30.0,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Expanded(
+                                          flex: 9,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10.0),
+                                            child: TextComponent(
+                                              text: 'Ngày 9 Tháng 12 Năm 2017',
+                                              colorText:
+                                                  AppColors.colorGreyText,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Checkbox(
+                                            side: const BorderSide(
+                                                width: 1.0,
+                                                color: AppColors.colorPink),
+                                            activeColor:
+                                                AppColors.colorPinkCheck,
+                                            value: documents["Check"] ?? false,
+                                            onChanged: (bool? newValue) {},
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },

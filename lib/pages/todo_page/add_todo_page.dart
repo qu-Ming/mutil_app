@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mutil_app/model/todo_model.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 import 'package:mutil_app/utils/const/app_dimens.dart';
 
@@ -33,14 +34,13 @@ class _AddTodoPageState extends State<AddTodoPage> {
         actions: [
           IconButton(
             onPressed: () async {
+              TodoModel todo = TodoModel();
+              todo.title = titleController.text;
+              todo.content = contentController.text;
+              todo.dayCreate = Timestamp.now();
               FirebaseFirestore.instance
                   .collection("Todo")
-                  .add({
-                    "Content": contentController.text,
-                    "Title": titleController.text,
-                    "Check": false,
-                    "Time": DateTime.now(),
-                  })
+                  .add(todo.toJson())
                   .then((value) {})
                   .catchError(
                     // ignore: avoid_print, invalid_return_type_for_catch_error
