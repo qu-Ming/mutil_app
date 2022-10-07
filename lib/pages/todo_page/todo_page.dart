@@ -31,8 +31,8 @@ class _TodoPagePageState extends State<TodoPage> {
             child: Column(
               children: [
                 Container(
-                  margin: const EdgeInsets.all(30.0),
-                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: AppColors.colorPink,
                     borderRadius: BorderRadius.circular(12),
