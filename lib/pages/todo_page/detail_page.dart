@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mutil_app/components/text_component.dart';
 import 'package:mutil_app/model/todo_model.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 import 'package:mutil_app/utils/const/app_dimens.dart';
@@ -21,7 +20,7 @@ class _DetailPage extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    starlPage();
+    startPage();
   }
 
   @override
@@ -45,7 +44,16 @@ class _DetailPage extends State<DetailPage> {
             )),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                TodoModel todo = TodoModel();
+                todo.title = titleController.text;
+                todo.content = titleController.text;
+                final doc = FirebaseFirestore.instance
+                    .collection('Todo')
+                    .doc('2Lvx16wtp9W1L4UQ18UO');
+
+                doc.update({'Check': true, 'Title': 'Yolo', 'Content': 'Duoc'});
+              },
               icon: const Icon(
                 Icons.update,
                 size: AppDimens.icon_size_28,
@@ -117,7 +125,7 @@ class _DetailPage extends State<DetailPage> {
     );
   }
 
-  starlPage() {
+  startPage() {
     titleController.text = widget.todoModel.title!;
     contentController.text = widget.todoModel.content!;
   }
