@@ -31,9 +31,12 @@ class _DetailPage extends State<DetailPage> {
       backgroundColor: AppColors.colorPinkBG,
       appBar: AppBar(
         elevation: 1,
-        title: const Text(
-          'Ghi chú',
-          style: TextStyle(fontFamily: "Montserrat"),
+        title: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: const Text(
+            'Ghi chú',
+            style: TextStyle(fontFamily: "Montserrat"),
+          ),
         ),
         backgroundColor: AppColors.colorPink,
         leading: IconButton(
@@ -54,14 +57,15 @@ class _DetailPage extends State<DetailPage> {
               icon: const Icon(Icons.edit)),
           IconButton(
               onPressed: () async {
-                TodoModel todo = TodoModel();
-                todo.title = titleController.text;
-                todo.content = titleController.text;
-                final doc = FirebaseFirestore.instance
+                Map<String, dynamic> todoUpdate = TodoModel().toJson();
+                todoUpdate = {
+                  'Title': titleController.text,
+                  'Content': contentController.text
+                };
+                FirebaseFirestore.instance
                     .collection('Todo')
-                    .doc('2Lvx16wtp9W1L4UQ18UO');
-
-                doc.update({'Check': true, 'Title': 'Yolo', 'Content': 'Duoc'});
+                    .doc()
+                    .update(todoUpdate);
               },
               icon: const Icon(
                 Icons.update,
