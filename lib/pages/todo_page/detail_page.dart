@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mutil_app/components/text_component.dart';
 import 'package:mutil_app/model/todo_model.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 import 'package:mutil_app/utils/const/app_dimens.dart';
@@ -48,30 +49,27 @@ class _DetailPage extends State<DetailPage> {
               size: AppDimens.icon_size_28,
             )),
         actions: [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  isEdit != isEdit;
-                });
-              },
-              icon: const Icon(Icons.edit)),
-          IconButton(
+          TextButton(
               onPressed: () async {
                 Map<String, dynamic> todoUpdate = TodoModel().toJson();
                 todoUpdate = {
                   'Title': titleController.text,
-                  'Content': contentController.text
+                  'Content': contentController.text,
+                  'Check': widget.todoModel.check
                 };
                 FirebaseFirestore.instance
                     .collection('Todo')
-                    .doc()
+                    .doc(widget.todoModel.idTodo)
                     .update(todoUpdate);
-              },
-              icon: const Icon(
-                Icons.update,
-                size: AppDimens.icon_size_28,
-              )),
 
+                Navigator.pop(context);
+              },
+              child: const TextComponent(
+                text: 'Lưu',
+                fontWeight: FontWeight.w500,
+                textSize: AppDimens.text_size_16,
+                colorText: AppColors.colorWhite,
+              ))
           // IconButton(
           //   onPressed: () async {
           //     TodoModel todo = TodoModel();
@@ -99,20 +97,39 @@ class _DetailPage extends State<DetailPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: TextFormField(
-                  enabled: isEdit,
-                  controller: titleController,
-                  style: const TextStyle(
-                      fontSize: AppDimens.text_size_18,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w600),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(
-                        fontSize: AppDimens.text_size_18,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600),
-                  ),
+                child: Row(
+                  children: [
+                    Flexible(
+                      flex: 9,
+                      child: TextFormField(
+                        enabled: isEdit,
+                        controller: titleController,
+                        style: const TextStyle(
+                            fontSize: AppDimens.text_size_18,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w600),
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(
+                              fontSize: AppDimens.text_size_18,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: Checkbox(
+                        activeColor: AppColors.colorPink,
+                        value: widget.todoModel.check,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            widget.todoModel.check = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
               TextFormField(

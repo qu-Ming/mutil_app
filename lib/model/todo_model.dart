@@ -5,6 +5,7 @@ class TodoModel {
   String? title;
   String? content;
   Timestamp? dayCreate;
+  bool? check;
 
   TodoModel({this.title, this.content, this.dayCreate, this.idTodo});
 
@@ -12,6 +13,7 @@ class TodoModel {
     title = json['Title'] ?? '';
     content = json['Content'] ?? '';
     dayCreate = json['Time'] ?? '';
+    check = json['Check'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
@@ -19,6 +21,7 @@ class TodoModel {
     map['Title'] = title;
     map['Content'] = content;
     map['Time'] = dayCreate;
+    map['Check'] = check;
     return map;
   }
 }
