@@ -95,6 +95,9 @@ class _TodoPagePageState extends State<TodoPage> {
 
                           //item
                           TodoModel todoModel = TodoModel.fromJson(documents);
+                          todoModel.idTodo =
+                              snapshot.data!.docs[index].reference.id;
+                          print(todoModel.idTodo);
 
                           return InkWell(
                             onTap: () {

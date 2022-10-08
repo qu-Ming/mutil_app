@@ -23,15 +23,20 @@ class _DetailPage extends State<DetailPage> {
     startPage();
   }
 
+  bool isEdit = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorPinkBG,
       appBar: AppBar(
         elevation: 1,
-        title: const Text(
-          'Ghi chú',
-          style: TextStyle(fontFamily: "Montserrat"),
+        title: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: const Text(
+            'Ghi chú',
+            style: TextStyle(fontFamily: "Montserrat"),
+          ),
         ),
         backgroundColor: AppColors.colorPink,
         leading: IconButton(
@@ -45,14 +50,15 @@ class _DetailPage extends State<DetailPage> {
         actions: [
           IconButton(
               onPressed: () async {
-                TodoModel todo = TodoModel();
-                todo.title = titleController.text;
-                todo.content = titleController.text;
-                final doc = FirebaseFirestore.instance
+                Map<String, dynamic> todoUpdate = TodoModel().toJson();
+                todoUpdate = {
+                  'Title': titleController.text,
+                  'Content': contentController.text
+                };
+                FirebaseFirestore.instance
                     .collection('Todo')
-                    .doc('2Lvx16wtp9W1L4UQ18UO');
-
-                doc.update({'Check': true, 'Title': 'Yolo', 'Content': 'Duoc'});
+                    .doc()
+                    .update(todoUpdate);
               },
               icon: const Icon(
                 Icons.update,
@@ -87,7 +93,7 @@ class _DetailPage extends State<DetailPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: TextFormField(
-                  enabled: false,
+                  enabled: isEdit,
                   controller: titleController,
                   style: const TextStyle(
                       fontSize: AppDimens.text_size_18,
@@ -103,7 +109,7 @@ class _DetailPage extends State<DetailPage> {
                 ),
               ),
               TextFormField(
-                enabled: false,
+                enabled: isEdit,
                 style: const TextStyle(
                   fontSize: AppDimens.text_size_14,
                   fontFamily: 'Montserrat',
