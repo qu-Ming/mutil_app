@@ -23,6 +23,8 @@ class _DetailPage extends State<DetailPage> {
     startPage();
   }
 
+  bool isEdit = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +45,13 @@ class _DetailPage extends State<DetailPage> {
               size: AppDimens.icon_size_28,
             )),
         actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  isEdit != isEdit;
+                });
+              },
+              icon: const Icon(Icons.edit)),
           IconButton(
               onPressed: () async {
                 TodoModel todo = TodoModel();
@@ -87,7 +96,7 @@ class _DetailPage extends State<DetailPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: TextFormField(
-                  enabled: false,
+                  enabled: isEdit,
                   controller: titleController,
                   style: const TextStyle(
                       fontSize: AppDimens.text_size_18,
@@ -103,7 +112,7 @@ class _DetailPage extends State<DetailPage> {
                 ),
               ),
               TextFormField(
-                enabled: false,
+                enabled: isEdit,
                 style: const TextStyle(
                   fontSize: AppDimens.text_size_14,
                   fontFamily: 'Montserrat',
