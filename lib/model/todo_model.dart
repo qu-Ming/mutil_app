@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TodoModel {
+  String? idTodo;
   String? title;
   String? content;
   Timestamp? dayCreate;
 
-  TodoModel({this.title, this.content, this.dayCreate});
+  TodoModel({this.title, this.content, this.dayCreate, this.idTodo});
 
   TodoModel.fromJson(dynamic json) {
     title = json['Title'] ?? '';
