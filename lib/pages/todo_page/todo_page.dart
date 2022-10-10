@@ -173,8 +173,6 @@ class _TodoPagePageState extends State<TodoPage> {
 
                           Timestamp dateCreate = todoModel.dayCreate!;
                           DateTime timeToDate = dateCreate.toDate();
-                          print(
-                              '${timeToDate.day}-${timeToDate.month}-${timeToDate.year}');
 
                           return InkWell(
                             onTap: () {
@@ -340,16 +338,32 @@ class _TodoPagePageState extends State<TodoPage> {
                                   //   width: double.infinity,
                                   //   color: AppColors.colorGrey2,
                                   // ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: TextComponent(
-                                      text:
-                                          'Ngày tạo: ${timeToDate.day} tháng ${timeToDate.month} năm ${timeToDate.year}',
-                                      colorText: AppColors.colorGreyText,
-                                      textSize: AppDimens.text_size_10,
-                                      fontWeight: FontWeight.w100,
-                                    ),
-                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: TextComponent(
+                                          text:
+                                              'Ngày tạo : ${timeToDate.day}-${timeToDate.month}-${timeToDate.year}',
+                                          colorText: AppColors.colorGreyText,
+                                          textSize: AppDimens.text_size_10,
+                                          fontWeight: FontWeight.w100,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: TextComponent(
+                                          text:
+                                              'Thời gian : ${timeToDate.hour}:${timeToDate.minute}:${timeToDate.second}  ',
+                                          colorText: AppColors.colorGreyText,
+                                          textSize: AppDimens.text_size_10,
+                                          fontWeight: FontWeight.w100,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
