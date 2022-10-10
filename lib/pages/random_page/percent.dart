@@ -23,6 +23,7 @@ class _PercentTabState extends State<PercentTab> {
     String firstNum = 'Nhập số';
     String lastNum = 'Nhập số phần trăm';
     return Scaffold(
+      backgroundColor: AppColors.colorPink4,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -86,7 +87,7 @@ class _PercentTabState extends State<PercentTab> {
                   height: 40.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppColors.colorBlue,
+                    color: AppColors.appBarColor,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: const Center(
