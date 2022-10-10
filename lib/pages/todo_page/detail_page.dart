@@ -120,6 +120,8 @@ class _DetailPage extends State<DetailPage> {
                     Flexible(
                       flex: 1,
                       child: Checkbox(
+                        side: const BorderSide(
+                            width: 2.0, color: AppColors.colorPink),
                         activeColor: AppColors.colorPink,
                         value: widget.todoModel.check,
                         onChanged: (bool? newValue) {

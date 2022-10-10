@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mutil_app/components/text_component.dart';
 import 'package:mutil_app/model/todo_model.dart';
@@ -20,9 +21,79 @@ class _TodoPagePageState extends State<TodoPage> {
   final Stream<QuerySnapshot> _stream =
       FirebaseFirestore.instance.collection("Todo").snapshots();
   bool nonCheck = false;
+
+  bool checked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SafeArea(
+          child: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                  color: AppColors.colorPink,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                      bottomRight: Radius.circular(8))),
+              child: Center(
+                  child: TextComponent(
+                text: 'Điều chỉnh ghi chú',
+                fontWeight: FontWeight.bold,
+                textSize: AppDimens.text_size_22,
+                colorText: AppColors.colorWhite,
+              )),
+            ),
+            ListTile(
+              title: Row(
+                children: const [
+                  Icon(
+                    Icons.add,
+                    size: AppDimens.icon_size_30,
+                    color: AppColors.colorPink,
+                  ),
+                  TextComponent(
+                    text: '  Thêm ghi chú',
+                    textSize: 14,
+                    colorText: AppColors.colorPink,
+                    fontWeight: FontWeight.w500,
+                  )
+                ],
+              ),
+              onTap: (() {
+                Navigator.pop(context);
+
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AddTodoPage()));
+              }),
+            ),
+            ListTile(
+              title: Row(
+                children: const [
+                  Icon(
+                    Icons.delete,
+                    size: AppDimens.icon_size_30,
+                    color: AppColors.colorPink,
+                  ),
+                  TextComponent(
+                    text: '  Xóa ghi chú',
+                    textSize: 14,
+                    colorText: AppColors.colorPink,
+                    fontWeight: FontWeight.w500,
+                  )
+                ],
+              ),
+              onTap: (() {
+                setState(() {
+                  checked = !checked;
+                  Navigator.pop(context);
+                });
+              }),
+            ),
+          ],
+        ),
+      )),
       backgroundColor: AppColors.colorPink4,
       body: SafeArea(
         child: ScrollConfiguration(
@@ -49,17 +120,19 @@ class _TodoPagePageState extends State<TodoPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const TextComponent(
-                        text: '\nDanh sách những việc sẽ làm\n',
-                        fontWeight: FontWeight.bold,
-                        textSize: 16.0,
-                        colorText: AppColors.colorWhite,
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                        child: TextComponent(
+                          text: 'Danh sách những việc sẽ làm',
+                          fontWeight: FontWeight.bold,
+                          textSize: AppDimens.text_size_16,
+                          colorText: AppColors.colorWhite,
+                        ),
                       ),
                       Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.colorPinkBG,
-                          shape: BoxShape.circle,
-                        ),
+                        decoration: BoxDecoration(
+                            color: AppColors.colorPinkBG,
+                            borderRadius: BorderRadius.circular(12)),
                         child: IconButton(
                             onPressed: (() {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -161,14 +234,92 @@ class _TodoPagePageState extends State<TodoPage> {
                                           ],
                                         ),
                                       ),
-                                      Checkbox(
-                                        side: const BorderSide(
-                                            width: 2.0,
-                                            color: AppColors.colorPink),
-                                        activeColor: AppColors.colorPinkCheck,
-                                        value: documents["Check"] ?? false,
-                                        onChanged: (bool? newValue) {},
-                                      ),
+                                      checked
+                                          ? IconButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (_) => AlertDialog(
+                                                    title: const TextComponent(
+                                                      text: 'EM MUỐN XÓA?',
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      textSize: AppDimens
+                                                          .text_size_14,
+                                                    ),
+                                                    content:
+                                                        const TextComponent(
+                                                      text: 'Em chắc chưa?',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      textSize: AppDimens
+                                                          .text_size_14,
+                                                      colorText: AppColors
+                                                          .colorGreyText,
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    "Todo")
+                                                                .doc(todoModel
+                                                                    .idTodo)
+                                                                .delete()
+                                                                .then(
+                                                                  (doc) => print(
+                                                                      "Document deleted"),
+                                                                  onError: (e) =>
+                                                                      print(
+                                                                          "Error updating document $e"),
+                                                                );
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child:
+                                                              const TextComponent(
+                                                            text: 'Sure',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            colorText: AppColors
+                                                                .colorPink,
+                                                            textSize: AppDimens
+                                                                .text_size_14,
+                                                          )),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child:
+                                                              const TextComponent(
+                                                            text: 'Nô',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            colorText: AppColors
+                                                                .colorPink,
+                                                            textSize: AppDimens
+                                                                .text_size_14,
+                                                          )),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              icon: const Icon(
+                                                Icons.delete,
+                                                color: AppColors.colorPink,
+                                              ))
+                                          : Checkbox(
+                                              side: const BorderSide(
+                                                  width: 2.0,
+                                                  color: AppColors.colorPink),
+                                              activeColor:
+                                                  AppColors.colorPinkCheck,
+                                              value:
+                                                  documents["Check"] ?? false,
+                                              onChanged: (bool? newValue) {},
+                                            ),
                                       // IconButton(
 
                                       //   icon: Icon(
