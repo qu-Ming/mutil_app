@@ -41,6 +41,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
               todo.title = titleController.text;
               todo.content = contentController.text;
               todo.dayCreate = Timestamp.now();
+              todo.check = false;
               FirebaseFirestore.instance
                   .collection("Todo")
                   .add(todo.toJson())

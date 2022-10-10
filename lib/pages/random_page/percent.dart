@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mutil_app/utils/const/my_behavior.dart';
 
 import '../../components/text_component.dart';
 import '../../components/textfield_component.dart';
@@ -21,8 +20,8 @@ class _PercentTabState extends State<PercentTab> {
     TextEditingController fNum = TextEditingController();
     TextEditingController lNum = TextEditingController();
 
-    String firstNum = 'Nhập số đầu';
-    String lastNum = 'Nhập số cuối';
+    String firstNum = 'Nhập số';
+    String lastNum = 'Nhập số phần trăm';
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

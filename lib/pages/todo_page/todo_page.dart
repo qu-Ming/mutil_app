@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mutil_app/components/text_component.dart';
 import 'package:mutil_app/model/todo_model.dart';
@@ -23,6 +22,7 @@ class _TodoPagePageState extends State<TodoPage> {
   bool nonCheck = false;
 
   bool checked = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,6 +170,9 @@ class _TodoPagePageState extends State<TodoPage> {
                           TodoModel todoModel = TodoModel.fromJson(documents);
                           todoModel.idTodo =
                               snapshot.data!.docs[index].reference.id;
+
+                          Timestamp dateCreate = todoModel.dayCreate!;
+                          DateTime timeToDate = dateCreate.toDate();
 
                           return InkWell(
                             onTap: () {
@@ -335,13 +338,32 @@ class _TodoPagePageState extends State<TodoPage> {
                                   //   width: double.infinity,
                                   //   color: AppColors.colorGrey2,
                                   // ),
-                                  // const Align(
-                                  //   alignment: Alignment.centerLeft,
-                                  //   child: TextComponent(
-                                  //     text: 'Ngày 9 Tháng 12 Năm 2017',
-                                  //     colorText: AppColors.colorGreyText,
-                                  //   ),
-                                  // ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: TextComponent(
+                                          text:
+                                              'Ngày tạo : ${timeToDate.day}-${timeToDate.month}-${timeToDate.year}',
+                                          colorText: AppColors.colorGreyText,
+                                          textSize: AppDimens.text_size_10,
+                                          fontWeight: FontWeight.w100,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: TextComponent(
+                                          text:
+                                              'Thời gian : ${timeToDate.hour}:${timeToDate.minute}:${timeToDate.second}  ',
+                                          colorText: AppColors.colorGreyText,
+                                          textSize: AppDimens.text_size_10,
+                                          fontWeight: FontWeight.w100,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
