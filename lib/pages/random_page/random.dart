@@ -25,6 +25,7 @@ class _RandomState extends State<RandomTab> {
     String firstNum = 'Nhập số đầu';
     String lastNum = 'Nhập số cuối';
     return Scaffold(
+      backgroundColor: AppColors.colorPink4,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -88,7 +89,7 @@ class _RandomState extends State<RandomTab> {
                   height: 40.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppColors.colorBlue,
+                    color: AppColors.colorPink,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: const Center(
@@ -115,7 +116,7 @@ class _RandomState extends State<RandomTab> {
                     number.toString(),
                     key: ValueKey(number),
                     style: const TextStyle(
-                        color: AppColors.colorBlue,
+                        color: AppColors.colorPink,
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Montserrat"),
@@ -123,6 +124,9 @@ class _RandomState extends State<RandomTab> {
                 ),
               ),
               ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppColors.colorPink)),
                 onPressed: () {
                   setState(() {
                     onPress();

@@ -101,51 +101,121 @@ class _TodoPagePageState extends State<TodoPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.all(10.0),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: AppColors.colorPink,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.colorPink.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 9,
-                        offset:
-                            const Offset(0, 1), // changes position of shadow
-                      ),
-                    ],
+                ////////////////////////////
+                Stack(children: [
+                  Container(
+                    height: 75.0,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(36),
+                            bottomRight: Radius.circular(36)),
+                        color: AppColors.colorBrown),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: TextComponent(
-                          text: 'Danh sách những việc sẽ làm',
-                          fontWeight: FontWeight.bold,
-                          textSize: AppDimens.text_size_16,
-                          colorText: AppColors.colorWhite,
+                      Expanded(
+                        flex: 9,
+                        child: Container(
+                          margin: const EdgeInsets.fromLTRB(10, 50, 10, 10),
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: AppColors.colorPink,
+                            borderRadius: BorderRadius.circular(24),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.colorPink.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 9,
+                                offset: const Offset(
+                                    0, 1), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 20.0),
+                                child: TextComponent(
+                                  text: 'Danh sách những việc sẽ làm',
+                                  fontWeight: FontWeight.bold,
+                                  textSize: AppDimens.text_size_16,
+                                  colorText: AppColors.colorWhite,
+                                ),
+                              ),
+                              Container(
+                                height: 60,
+                                width: 1,
+                                color: AppColors.colorWhite,
+                              ),
+                              Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.colorPinkBG,
+                                  // borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: IconButton(
+                                    onPressed: (() {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AddTodoPage()));
+                                    }),
+                                    icon: const Icon(
+                                      Icons.add,
+                                      size: AppDimens.icon_size_30,
+                                      color: AppColors.colorPink,
+                                    )),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: AppColors.colorPinkBG,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: IconButton(
-                            onPressed: (() {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const AddTodoPage()));
-                            }),
-                            icon: const Icon(
-                              Icons.add,
-                              size: AppDimens.icon_size_30,
-                              color: AppColors.colorPink,
-                            )),
-                      ),
+                      // Expanded(
+                      //     flex: 2,
+                      //     child: Container(
+                      //       padding: const EdgeInsets.only(
+                      //           top: 15, bottom: 15, left: 10, right: 10),
+                      //       margin: const EdgeInsets.only(right: 10),
+                      //       decoration: BoxDecoration(
+                      //         color: AppColors.colorPink4,
+                      //         borderRadius: const BorderRadius.only(
+                      //             topRight: Radius.circular(24),
+                      //             bottomRight: Radius.circular(24)),
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //             color: AppColors.colorPink.withOpacity(0.5),
+                      //             spreadRadius: 2,
+                      //             blurRadius: 9,
+                      //             offset: const Offset(
+                      //                 0, 1), // changes position of shadow
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       child: Container(
+                      //         decoration: const BoxDecoration(
+                      //             // borderRadius: BorderRadius.circular(12),
+                      //             color: AppColors.colorPink,
+                      //             shape: BoxShape.circle),
+                      //         child: IconButton(
+                      //             onPressed: (() {
+                      //               setState(() {
+                      //                 checked = false;
+                      //               });
+                      //             }),
+                      //             icon: const Icon(
+                      //               Icons.keyboard_return_sharp,
+                      //               size: AppDimens.icon_size_24,
+                      //               color: AppColors.colorWhite,
+                      //             )),
+                      //       ),
+                      //     ))
                     ],
                   ),
+                ]),
+                const SizedBox(
+                  height: 20.0,
                 ),
                 StreamBuilder<QuerySnapshot>(
                     stream: _stream,
@@ -173,6 +243,23 @@ class _TodoPagePageState extends State<TodoPage> {
 
                           Timestamp dateCreate = todoModel.dayCreate!;
                           DateTime timeToDate = dateCreate.toDate();
+
+                          String toDate = '';
+                          if (timeToDate.weekday == 1) {
+                            toDate = 'Thứ hai';
+                          } else if (timeToDate.weekday == 2) {
+                            toDate = 'Thứ Ba';
+                          } else if (timeToDate.weekday == 3) {
+                            toDate = 'Thứ Tư';
+                          } else if (timeToDate.weekday == 4) {
+                            toDate = 'Thứ Năm';
+                          } else if (timeToDate.weekday == 5) {
+                            toDate = 'Thứ Sáu';
+                          } else if (timeToDate.weekday == 6) {
+                            toDate = 'Thứ Bảy';
+                          } else if (timeToDate.weekday == 7) {
+                            toDate = 'Chủ nhật';
+                          }
 
                           return InkWell(
                             onTap: () {
@@ -263,6 +350,21 @@ class _TodoPagePageState extends State<TodoPage> {
                                                     actions: [
                                                       TextButton(
                                                           onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child:
+                                                              const TextComponent(
+                                                            text: 'Nô',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            colorText: AppColors
+                                                                .colorPink,
+                                                            textSize: AppDimens
+                                                                .text_size_14,
+                                                          )),
+                                                      TextButton(
+                                                          onPressed: () {
                                                             FirebaseFirestore
                                                                 .instance
                                                                 .collection(
@@ -283,21 +385,6 @@ class _TodoPagePageState extends State<TodoPage> {
                                                           child:
                                                               const TextComponent(
                                                             text: 'Sure',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            colorText: AppColors
-                                                                .colorPink,
-                                                            textSize: AppDimens
-                                                                .text_size_14,
-                                                          )),
-                                                      TextButton(
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child:
-                                                              const TextComponent(
-                                                            text: 'Nô',
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             colorText: AppColors
@@ -346,7 +433,7 @@ class _TodoPagePageState extends State<TodoPage> {
                                         alignment: Alignment.centerLeft,
                                         child: TextComponent(
                                           text:
-                                              'Ngày tạo : ${timeToDate.day}-${timeToDate.month}-${timeToDate.year}',
+                                              'Ngày tạo : $toDate , ngày ${timeToDate.day} tháng ${timeToDate.month} năm ${timeToDate.year}.',
                                           colorText: AppColors.colorGreyText,
                                           textSize: AppDimens.text_size_10,
                                           fontWeight: FontWeight.w100,
@@ -356,7 +443,7 @@ class _TodoPagePageState extends State<TodoPage> {
                                         alignment: Alignment.centerRight,
                                         child: TextComponent(
                                           text:
-                                              'Thời gian : ${timeToDate.hour}:${timeToDate.minute}:${timeToDate.second}  ',
+                                              '${timeToDate.hour}:${timeToDate.minute}:${timeToDate.second}   ',
                                           colorText: AppColors.colorGreyText,
                                           textSize: AppDimens.text_size_10,
                                           fontWeight: FontWeight.w100,

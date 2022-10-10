@@ -14,36 +14,37 @@ class _RandomPageState extends State<RandomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.colorPink4,
         body: GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: DefaultTabController(
-        length: 2,
-        child: SafeArea(
-          child: Column(
-            children: const [
-              TabBar(
-                labelColor: AppColors.colorPink,
-                indicatorColor: AppColors.colorGrey2,
-                unselectedLabelColor: AppColors.colorGrey2,
-                tabs: [
-                  Tab(
-                    icon: Icon(
-                      Icons.shuffle,
-                    ),
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: DefaultTabController(
+            length: 2,
+            child: SafeArea(
+              child: Column(
+                children: const [
+                  TabBar(
+                    labelColor: AppColors.colorPink,
+                    indicatorColor: AppColors.colorGrey2,
+                    unselectedLabelColor: AppColors.colorGrey2,
+                    tabs: [
+                      Tab(
+                        icon: Icon(
+                          Icons.shuffle,
+                        ),
+                      ),
+                      Tab(
+                        icon: Icon(Icons.calculate),
+                      )
+                    ],
                   ),
-                  Tab(
-                    icon: Icon(Icons.calculate),
-                  )
+                  Expanded(
+                      child: TabBarView(
+                    children: [RandomTab(), PercentTab()],
+                  ))
                 ],
               ),
-              Expanded(
-                  child: TabBarView(
-                children: [RandomTab(), PercentTab()],
-              ))
-            ],
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }
