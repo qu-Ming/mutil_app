@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import 'package:mutil_app/components/list_title_component.dart';
 import 'package:mutil_app/components/text_component.dart';
+import 'package:mutil_app/components/todo_item.dart';
 import 'package:mutil_app/model/todo_model.dart';
 import 'package:mutil_app/pages/todo_page/add_todo_page.dart';
 import 'package:mutil_app/pages/todo_page/detail_page.dart';
@@ -26,8 +29,26 @@ class _TodoPagePageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SafeArea(
-          child: Drawer(
+      appBar: AppBar(
+        leading: Builder(
+          builder: (context) => IconButton(
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              icon: const Icon(
+                Icons.sort_rounded,
+                size: AppDimens.icon_size_28,
+              )),
+        ),
+        backgroundColor: AppColors.colorPink,
+        elevation: 0,
+        title: const TextComponent(
+          text: 'Danh sách ghi chú',
+          fontWeight: FontWeight.w500,
+          textSize: AppDimens.text_size_18,
+          colorText: AppColors.colorWhite,
+        ),
+      ),
+      drawerEnableOpenDragGesture: false,
+      drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -38,60 +59,43 @@ class _TodoPagePageState extends State<TodoPage> {
               child: Center(
                   child: TextComponent(
                 text: 'Điều chỉnh ghi chú',
-                fontWeight: FontWeight.bold,
-                textSize: AppDimens.text_size_22,
+                fontWeight: FontWeight.w600,
+                textSize: AppDimens.text_size_18,
                 colorText: AppColors.colorWhite,
               )),
             ),
-            ListTile(
-              title: Row(
-                children: const [
-                  Icon(
-                    Icons.add,
-                    size: AppDimens.icon_size_30,
-                    color: AppColors.colorPink,
-                  ),
-                  TextComponent(
-                    text: '  Tạo ghi chú',
-                    textSize: 14,
-                    colorText: AppColors.colorPink,
-                    fontWeight: FontWeight.w500,
-                  )
-                ],
-              ),
-              onTap: (() {
-                Navigator.pop(context);
-
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AddTodoPage()));
-              }),
+            ListTitleComponent(
+              text: "    Thêm ghi chú",
+              iconData: Icons.note_add,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddTodoPage()));
+              },
             ),
-            ListTile(
-              title: Row(
-                children: const [
-                  Icon(
-                    Icons.delete,
-                    size: AppDimens.icon_size_30,
-                    color: AppColors.colorPink,
-                  ),
-                  TextComponent(
-                    text: '  Xóa ghi chú',
-                    textSize: 14,
-                    colorText: AppColors.colorPink,
-                    fontWeight: FontWeight.w500,
-                  )
-                ],
-              ),
-              onTap: (() {
-                setState(() {
-                  checked = !checked;
-                  Navigator.pop(context);
-                });
-              }),
+            ListTitleComponent(
+              text: "    Thông báo",
+              iconData: Icons.notifications,
+              onTap: () {},
             ),
+            ListTitleComponent(
+              text: "    Nhắn tin",
+              iconData: Icons.chat,
+              onTap: () {},
+            ),
+            Container(
+              color: AppColors.colorGrey2,
+              height: 1,
+            ),
+            ListTitleComponent(
+              text: "    Cài đặt",
+              iconData: Icons.settings,
+              onTap: () {},
+            )
           ],
         ),
-      )),
+      ),
       backgroundColor: AppColors.colorPink4,
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -105,12 +109,12 @@ class _TodoPagePageState extends State<TodoPage> {
                   Stack(
                     children: [
                       Container(
-                        height: 180.0,
+                        height: 40.0,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(0),
-                              bottomRight: Radius.circular(0),
+                              bottomLeft: Radius.circular(24),
+                              bottomRight: Radius.circular(24),
                             ),
                             boxShadow: [
                               BoxShadow(
@@ -124,87 +128,10 @@ class _TodoPagePageState extends State<TodoPage> {
                             color: AppColors.colorPink),
                       ),
                       Container(
-                        margin: const EdgeInsets.fromLTRB(20, 40, 20, 10),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 20.0),
-                        decoration: BoxDecoration(
-                          color: AppColors.colorPink4,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(right: 10.0),
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.colorPink,
-
-                                    // borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: IconButton(
-                                      onPressed: (() {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const AddTodoPage()));
-                                      }),
-                                      icon: const Icon(
-                                        Icons.add,
-                                        size: AppDimens.icon_size_30,
-                                        color: AppColors.colorPink4,
-                                      )),
-                                ),
-                                const TextComponent(
-                                  text: 'Tạo ghi chú',
-                                  fontWeight: FontWeight.w500,
-                                  textSize: AppDimens.text_size_14,
-                                )
-                              ],
-                            ),
-                            Container(
-                              width: 1,
-                              height: 70,
-                              color: AppColors.colorGrey3,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(right: 10.0),
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.colorPink,
-
-                                    // borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: IconButton(
-                                      onPressed: (() {
-                                        setState(() {
-                                          checked = false;
-                                        });
-                                      }),
-                                      icon: const Icon(
-                                        Icons.restart_alt_sharp,
-                                        size: AppDimens.icon_size_30,
-                                        color: AppColors.colorPink4,
-                                      )),
-                                ),
-                                const TextComponent(
-                                  text: 'Trở lại',
-                                  fontWeight: FontWeight.w500,
-                                  textSize: AppDimens.text_size_14,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
+                        height: 50.0,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5.0, vertical: 5.0),
-                        margin: const EdgeInsets.fromLTRB(60, 150, 60, 0),
+                        margin: const EdgeInsets.fromLTRB(50, 15, 50, 0),
                         decoration: BoxDecoration(
                           color: AppColors.colorPink4,
                           borderRadius: BorderRadius.circular(30),
@@ -230,7 +157,7 @@ class _TodoPagePageState extends State<TodoPage> {
                               disabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -255,7 +182,7 @@ class _TodoPagePageState extends State<TodoPage> {
                                 snapshot.data!.docs[index].data()
                                     as Map<String, dynamic>;
 
-                            //item
+                            //to model
                             TodoModel todoModel = TodoModel.fromJson(documents);
                             todoModel.idTodo =
                                 snapshot.data!.docs[index].reference.id;
@@ -267,15 +194,15 @@ class _TodoPagePageState extends State<TodoPage> {
                             if (timeToDate.weekday == 1) {
                               toDate = 'Thứ hai';
                             } else if (timeToDate.weekday == 2) {
-                              toDate = 'Thứ Ba';
+                              toDate = 'Thứ ba';
                             } else if (timeToDate.weekday == 3) {
-                              toDate = 'Thứ Tư';
+                              toDate = 'Thứ tư';
                             } else if (timeToDate.weekday == 4) {
-                              toDate = 'Thứ Năm';
+                              toDate = 'Thứ năm';
                             } else if (timeToDate.weekday == 5) {
-                              toDate = 'Thứ Sáu';
+                              toDate = 'Thứ sáu';
                             } else if (timeToDate.weekday == 6) {
-                              toDate = 'Thứ Bảy';
+                              toDate = 'Thứ bảy';
                             } else if (timeToDate.weekday == 7) {
                               toDate = 'Chủ nhật';
                             }
@@ -288,195 +215,60 @@ class _TodoPagePageState extends State<TodoPage> {
                                         builder: (context) =>
                                             DetailPage(todoModel: todoModel)));
                               },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 10.0),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 10.0),
-                                decoration: BoxDecoration(
-                                  color: AppColors.colorWhite,
-                                  borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(12),
-                                      bottomRight: Radius.circular(12)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          AppColors.colorGrey.withOpacity(0.5),
-                                      spreadRadius: 2,
-                                      blurRadius: 9,
-                                      offset: const Offset(
-                                          0, 1), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: Column(
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: TextComponent(
-                                                  text: documents["Title"],
-                                                  fontWeight: FontWeight.w600,
-                                                  textSize:
-                                                      AppDimens.text_size_16,
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 8.0),
-                                                  child: TextComponent(
-                                                    maxLines: 1,
-                                                    text: documents["Content"],
-                                                    textSize:
-                                                        AppDimens.text_size_12,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        checked
-                                            ? IconButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (_) => AlertDialog(
-                                                      title:
-                                                          const TextComponent(
-                                                        text: 'EM MUỐN XÓA?',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        textSize: AppDimens
-                                                            .text_size_14,
-                                                      ),
-                                                      content:
-                                                          const TextComponent(
-                                                        text: 'Em chắc chưa?',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        textSize: AppDimens
-                                                            .text_size_14,
-                                                        colorText: AppColors
-                                                            .colorGreyText,
-                                                      ),
-                                                      actions: [
-                                                        TextButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child:
-                                                                const TextComponent(
-                                                              text: 'Nô',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              colorText:
-                                                                  AppColors
-                                                                      .colorPink,
-                                                              textSize: AppDimens
-                                                                  .text_size_14,
-                                                            )),
-                                                        TextButton(
-                                                            onPressed: () {
-                                                              FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      "Todo")
-                                                                  .doc(todoModel
-                                                                      .idTodo)
-                                                                  .delete()
-                                                                  .then(
-                                                                    (doc) => print(
-                                                                        "Document deleted"),
-                                                                    onError: (e) =>
-                                                                        print(
-                                                                            "Error updating document $e"),
-                                                                  );
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child:
-                                                                const TextComponent(
-                                                              text: 'Sure',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              colorText:
-                                                                  AppColors
-                                                                      .colorPink,
-                                                              textSize: AppDimens
-                                                                  .text_size_14,
-                                                            )),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                  Icons.delete,
-                                                  color: AppColors.colorPink,
-                                                ))
-                                            : Checkbox(
-                                                side: const BorderSide(
-                                                    width: 2.0,
-                                                    color: AppColors.colorPink),
-                                                activeColor:
-                                                    AppColors.colorPinkCheck,
-                                                value:
-                                                    documents["Check"] ?? false,
-                                                onChanged: (bool? newValue) {},
-                                              ),
-                                        // IconButton(
-
-                                        //   icon: Icon(
-                                        //     Icons.chevron_right,
-                                        //     size: AppDimens.icon_size_28,
-                                        //   ),
-                                        // )
+                              onLongPress: () {
+                                {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      title: const TextComponent(
+                                        text: 'EM MUỐN XÓA?',
+                                        fontWeight: FontWeight.w600,
+                                        textSize: AppDimens.text_size_14,
+                                      ),
+                                      content: const TextComponent(
+                                        text: 'Em chắc chưa?',
+                                        fontWeight: FontWeight.w500,
+                                        textSize: AppDimens.text_size_14,
+                                        colorText: AppColors.colorGreyText,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const TextComponent(
+                                              text: 'Nô',
+                                              fontWeight: FontWeight.bold,
+                                              colorText: AppColors.colorPink,
+                                              textSize: AppDimens.text_size_14,
+                                            )),
+                                        TextButton(
+                                            onPressed: () {
+                                              FirebaseFirestore.instance
+                                                  .collection("Todo")
+                                                  .doc(todoModel.idTodo)
+                                                  .delete();
+                                              Navigator.pop(context);
+                                            },
+                                            child: const TextComponent(
+                                              text: 'Sure',
+                                              fontWeight: FontWeight.bold,
+                                              colorText: AppColors.colorPink,
+                                              textSize: AppDimens.text_size_14,
+                                            )),
                                       ],
                                     ),
-                                    // Container(
-                                    //   height: 1,
-                                    //   margin: const EdgeInsets.only(bottom: 5.0),
-                                    //   width: double.infinity,
-                                    //   color: AppColors.colorGrey2,
-                                    // ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: TextComponent(
-                                            text:
-                                                'Ngày tạo : $toDate , ngày ${timeToDate.day} tháng ${timeToDate.month} năm ${timeToDate.year}.',
-                                            colorText: AppColors.colorGreyText,
-                                            textSize: AppDimens.text_size_10,
-                                            fontWeight: FontWeight.w100,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.centerRight,
-                                          child: TextComponent(
-                                            text:
-                                                '${timeToDate.hour}:${timeToDate.minute}:${timeToDate.second}   ',
-                                            colorText: AppColors.colorGreyText,
-                                            textSize: AppDimens.text_size_10,
-                                            fontWeight: FontWeight.w100,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                  );
+                                }
+                              },
+                              child: TodoItem(
+                                title: documents["Title"],
+                                content: documents["Content"],
+                                dayCreate1:
+                                    "Ngày tạo : $toDate , ngày ${timeToDate.day} tháng ${timeToDate.month} năm ${timeToDate.year}.",
+                                dayCreate2:
+                                    "${timeToDate.hour}:${timeToDate.minute}:${timeToDate.second}   ",
+                                checked: documents["Check"],
                               ),
                             );
                           },

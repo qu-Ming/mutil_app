@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:like_button/like_button.dart';
 import 'package:mutil_app/components/circle_avatar_component.dart';
 import 'package:mutil_app/components/text_component.dart';
@@ -37,6 +38,7 @@ class _DatePageState extends State<DatePage> {
 
   bool seeDay = true;
   bool isLiked = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,9 +95,7 @@ class _DatePageState extends State<DatePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: (() {
-                            openDialog(context);
-                          }),
+                          onTap: (() {}),
                           child: CircleAvatarComponent(
                             name: 'Ngân',
                             assetImage: assetImageM,
