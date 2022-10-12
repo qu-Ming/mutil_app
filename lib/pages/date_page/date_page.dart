@@ -42,9 +42,8 @@ class _DatePageState extends State<DatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Column(
             children: [
               Stack(
@@ -190,19 +189,12 @@ class _DatePageState extends State<DatePage> {
 
     int chucInt = dayBeen % 100;
 
-    // if (nghin == 0) {
-    //   dayBeenTogether = '$tram$chuc$donVi';
-
-    //   sodau = '$tram${chuc = 0}${donVi = 0}';
-
-    //   socuoi = '${tram + 1}${chuc = 0}${donVi = 0}';
-    // } else {
     dayBeenTogether = '$nghin$tram$chuc$donVi';
 
     sodau = '$nghin$tram${chuc = 0}${donVi = 0}';
 
     socuoi = '$nghin${tram + 1}${chuc = 0}${donVi = 0}';
-    // }
+
     distance = chucInt / (int.parse(socuoi) - int.parse(sodau));
 
     nam = (dayBeen / 365).floor();
