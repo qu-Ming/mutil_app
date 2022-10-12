@@ -5,6 +5,7 @@ import 'package:mutil_app/components/list_title_component.dart';
 import 'package:mutil_app/components/text_component.dart';
 import 'package:mutil_app/components/todo_item.dart';
 import 'package:mutil_app/model/todo_model.dart';
+import 'package:mutil_app/pages/chat_page/security_page.dart';
 import 'package:mutil_app/pages/todo_page/add_todo_page.dart';
 import 'package:mutil_app/pages/todo_page/detail_page.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
@@ -82,7 +83,12 @@ class _TodoPagePageState extends State<TodoPage> {
             ListTitleComponent(
               text: "    Nhắn tin",
               iconData: Icons.chat,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SecurityPage()));
+              },
             ),
             Container(
               color: AppColors.colorGrey2,
@@ -163,6 +169,7 @@ class _TodoPagePageState extends State<TodoPage> {
                   const SizedBox(
                     height: 20.0,
                   ),
+
                   StreamBuilder<QuerySnapshot>(
                       stream: _stream,
                       builder: (context, snapshot) {
