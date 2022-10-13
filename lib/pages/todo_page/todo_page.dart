@@ -269,13 +269,13 @@ class _TodoPagePageState extends State<TodoPage> {
                                 }
                               },
                               child: TodoItem(
-                                title: documents["Title"],
-                                content: documents["Content"],
+                                title: todoModel.title!,
+                                content: todoModel.content!,
                                 dayCreate1:
                                     "Ngày tạo : $toDate , ngày ${timeToDate.day} tháng ${timeToDate.month} năm ${timeToDate.year}.",
                                 dayCreate2:
                                     "${timeToDate.hour}:${timeToDate.minute}:${timeToDate.second}   ",
-                                checked: documents["Check"],
+                                checked: todoModel.check!,
                               ),
                             );
                           },

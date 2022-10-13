@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mutil_app/pages/bottom_navigator.dart';
+import 'package:mutil_app/pages/chat_page/chat_page.dart';
+import 'package:mutil_app/pages/chat_page/security_page.dart';
 
 import 'firebase_options.dart';
 
@@ -23,7 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavigator(),
+      // home: BottomNavigator(),
+      home: SecurityPage(),
     );
   }
 }
