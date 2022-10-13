@@ -44,11 +44,22 @@ class _SecurityPageState extends State<SecurityPage> {
                       backgroundColor:
                           MaterialStateProperty.all(AppColors.colorPink)),
                   onPressed: () {
-                    if (security.text == "0912 ") {
+                    if (security.text == "m0912") {
+                      String pass = "minh";
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ChatPage()));
+                              builder: (context) => ChatPage(
+                                    pass: pass,
+                                  )));
+                    } else if (security.text == "n0912") {
+                      String pass = "ngan";
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                    pass: pass,
+                                  )));
                     }
                   },
                   child: const Text('Xác nhận')),
