@@ -176,7 +176,8 @@ class _RandomState extends State<RandomTab> {
 }
 
 onPress() {
-  number = number + 1;
+  // number = number + 1;
+  number = 1750;
   if (number == 50) {
     title = 'Nice';
   } else if (number == 100) {
@@ -191,6 +192,11 @@ onPress() {
     title = 'I love you';
   } else if (number == 1000) {
     title = 'Moazzzzzzzzzz';
+  } else if (number == 1500) {
+    title = 'Em là lý tưởng sống\ncủa đời anh';
+  } else if (number == 1750) {
+    title =
+        'Thanks tạo hóa ban cho anh đôi mắt\nđể anh có thể ngắm em\nmỗi ngày';
   }
 }
 
