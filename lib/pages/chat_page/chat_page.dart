@@ -51,6 +51,8 @@ class _ChatPageState extends State<ChatPage> {
                 onTap: () {
                   setState(() {
                     onTapSend();
+                    _controller.text = '';
+                    FocusManager.instance.primaryFocus?.unfocus();
                   });
                 },
                 child: const Icon(
