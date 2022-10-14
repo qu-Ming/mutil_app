@@ -9,18 +9,21 @@ class ChatItem extends StatelessWidget {
       {Key? key,
       required this.aligment,
       required this.textMess,
-      required this.texTime})
+      required this.texTime,
+      this.width})
       : super(key: key);
 
   final AlignmentGeometry aligment;
   final String textMess;
   final String texTime;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: aligment,
       child: Container(
+          width: width,
           margin: const EdgeInsets.all(12),
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(

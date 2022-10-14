@@ -20,113 +20,137 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getEndPage();
+  // }
+
   final Stream<QuerySnapshot> _stream = FirebaseFirestore.instance
       .collection("Chat")
       .orderBy("Time", descending: false)
       .snapshots();
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    double widthText = 170;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('@${widget.pass}'),
         backgroundColor: AppColors.colorPink,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        height: 60.0,
-        color: AppColors.colorWhite,
-        child: Center(
-          child: TextFormField(
-            controller: _controller,
-            decoration: InputDecoration(
-              prefixIconColor: AppColors.colorWhite,
-              hintText: 'Nhắn tin...',
-              border: InputBorder.none,
-              prefixIcon: const Icon(
-                Icons.tag_faces,
-              ),
-              suffixIcon: InkWell(
-                onTap: () {
-                  setState(() {
-                    onTapSend();
-                    _controller.text = '';
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  });
-                },
-                child: const Icon(
-                  Icons.send,
-                ),
-              ),
-            ),
-            cursorColor: AppColors.colorBlack,
-          ),
-        ),
+        actions: [
+          IconButton(
+              onPressed: getEndPage,
+              icon: const Icon(Icons.arrow_downward_rounded))
+        ],
       ),
       body: SafeArea(
         child: ScrollConfiguration(
           behavior: MyBehavior(),
           child: SingleChildScrollView(
-            child: GestureDetector(
-              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-              child: Column(
-                children: [
-                  StreamBuilder<QuerySnapshot>(
-                    stream: _stream,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.colorPink,
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          Map<String, dynamic> doc = snapshot.data!.docs[index]
-                              .data() as Map<String, dynamic>;
-
-                          ChatModel chatModel = ChatModel.fromJson(doc);
-                          widget.chatModel.idMess =
-                              snapshot.data!.docs[index].reference.id;
-                          Timestamp time = chatModel.time!;
-                          DateTime toTime = time.toDate();
-
-                          return widget.pass == "minh"
-                              ? GestureDetector(
-                                  onLongPress: () {
-                                    onDelete();
-                                  },
-                                  child: ChatItem(
-                                      aligment: chatModel.user == "minh"
-                                          ? Alignment.topRight
-                                          : Alignment.topLeft,
-                                      textMess: chatModel.messenger!,
-                                      texTime:
-                                          '${toTime.hour} giờ ${toTime.second}'),
-                                )
-                              : GestureDetector(
-                                  onLongPress: () {
-                                    onDelete();
-                                  },
-                                  child: ChatItem(
-                                      aligment: doc["User"] == "ngan"
-                                          ? Alignment.topRight
-                                          : Alignment.topLeft,
-                                      textMess: chatModel.messenger!,
-                                      texTime:
-                                          '${toTime.hour} giờ ${toTime.second}'),
-                                );
-                        },
+            child: Column(
+              children: [
+                StreamBuilder<QuerySnapshot>(
+                  stream: _stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.colorPink,
+                        ),
                       );
-                    },
+                    }
+                    return ListView.builder(
+                      controller: _scrollController,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        Map<String, dynamic> doc = snapshot.data!.docs[index]
+                            .data() as Map<String, dynamic>;
+
+                        ChatModel chatModel = ChatModel.fromJson(doc);
+                        chatModel.idMess =
+                            snapshot.data!.docs[index].reference.id;
+                        Timestamp time = chatModel.time!;
+                        DateTime toTime = time.toDate();
+
+                        return widget.pass == "minh"
+                            ? GestureDetector(
+                                onLongPress: () {
+                                  onDelete(chatModel);
+                                },
+                                child: ChatItem(
+                                    width: chatModel.messenger!.length < 35
+                                        ? null
+                                        : widthText,
+                                    aligment: chatModel.user == "minh"
+                                        ? Alignment.topRight
+                                        : Alignment.topLeft,
+                                    textMess: chatModel.messenger!,
+                                    texTime:
+                                        '${toTime.hour} : ${toTime.minute} : ${toTime.second}'),
+                              )
+                            : GestureDetector(
+                                onLongPress: () {
+                                  onDelete(chatModel);
+                                },
+                                child: ChatItem(
+                                    width: chatModel.messenger!.length < 35
+                                        ? null
+                                        : widthText = 170.0,
+                                    aligment: doc["User"] == "ngan"
+                                        ? Alignment.topRight
+                                        : Alignment.topLeft,
+                                    textMess: chatModel.messenger!,
+                                    texTime:
+                                        '${toTime.hour} giờ ${toTime.second}'),
+                              );
+                      },
+                    );
+                  },
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 60.0,
+                    color: AppColors.colorWhite,
+                    child: Center(
+                      child: TextFormField(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          prefixIconColor: AppColors.colorWhite,
+                          hintText: 'Nhắn tin...',
+                          border: InputBorder.none,
+                          prefixIcon: const Icon(
+                            Icons.tag_faces,
+                          ),
+                          suffixIcon: InkWell(
+                            onTap: () {
+                              setState(() {
+                                onTapSend();
+                                _controller.text = '';
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              });
+                            },
+                            child: const Icon(
+                              Icons.send,
+                            ),
+                          ),
+                        ),
+                        cursorColor: AppColors.colorBlack,
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom) *
+                        0.01)
+              ],
             ),
           ),
         ),
@@ -135,62 +159,75 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   onTapSend() async {
-    widget.chatModel.messenger = _controller.text;
-    widget.chatModel.time = Timestamp.now();
-    widget.chatModel.user = widget.pass;
-    FirebaseFirestore.instance
-        .collection("Chat")
-        .add(widget.chatModel.toJson())
-        .then((value) {})
-        .catchError(
-          // ignore: avoid_print, invalid_return_type_for_catch_error
-          (onError) => print(onError.toString()),
-        );
+    if (_controller.text.isEmpty) {
+      print('khong the xoa');
+    } else {
+      widget.chatModel.messenger = _controller.text;
+      widget.chatModel.time = Timestamp.now();
+      widget.chatModel.user = widget.pass;
+      FirebaseFirestore.instance
+          .collection("Chat")
+          .add(widget.chatModel.toJson())
+          .then((value) {})
+          .catchError(
+            // ignore: avoid_print, invalid_return_type_for_catch_error
+            (onError) => print(onError.toString()),
+          );
+    }
   }
 
-  onDelete() async {
-    print(widget.chatModel.idMess);
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const TextComponent(
-          text: 'EM MUỐN XÓA?',
-          fontWeight: FontWeight.w600,
-          textSize: AppDimens.text_size_14,
+  onDelete(ChatModel chat) async {
+    if (chat.user != widget.pass) {
+      print('khong the xoa');
+    } else {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const TextComponent(
+            text: 'EM MUỐN THU HỒI?',
+            fontWeight: FontWeight.w600,
+            textSize: AppDimens.text_size_14,
+          ),
+          content: const TextComponent(
+            text: 'Em chắc chưa?',
+            fontWeight: FontWeight.w500,
+            textSize: AppDimens.text_size_14,
+            colorText: AppColors.colorGreyText,
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const TextComponent(
+                  text: 'Nô',
+                  fontWeight: FontWeight.bold,
+                  colorText: AppColors.colorPink,
+                  textSize: AppDimens.text_size_14,
+                )),
+            TextButton(
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection("Chat")
+                      .doc(chat.idMess)
+                      .delete();
+                  Navigator.pop(context);
+                },
+                child: const TextComponent(
+                  text: 'Thu hồi',
+                  fontWeight: FontWeight.bold,
+                  colorText: AppColors.colorPink,
+                  textSize: AppDimens.text_size_14,
+                )),
+          ],
         ),
-        content: const TextComponent(
-          text: 'Em chắc chưa?',
-          fontWeight: FontWeight.w500,
-          textSize: AppDimens.text_size_14,
-          colorText: AppColors.colorGreyText,
-        ),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const TextComponent(
-                text: 'Nô',
-                fontWeight: FontWeight.bold,
-                colorText: AppColors.colorPink,
-                textSize: AppDimens.text_size_14,
-              )),
-          TextButton(
-              onPressed: () {
-                FirebaseFirestore.instance
-                    .collection("Chat")
-                    .doc(widget.chatModel.idMess)
-                    .delete();
-                Navigator.pop(context);
-              },
-              child: const TextComponent(
-                text: 'Sure',
-                fontWeight: FontWeight.bold,
-                colorText: AppColors.colorPink,
-                textSize: AppDimens.text_size_14,
-              )),
-        ],
-      ),
+      );
+    }
+  }
+
+  void getEndPage() {
+    _scrollController.jumpTo(
+      _scrollController.position.maxScrollExtent,
     );
   }
 }
