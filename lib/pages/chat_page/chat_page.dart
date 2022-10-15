@@ -238,6 +238,6 @@ class _ChatPageState extends State<ChatPage> {
 
   getEndPage() {
     _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+        duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
   }
 }
