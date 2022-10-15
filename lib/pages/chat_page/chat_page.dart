@@ -37,7 +37,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     double widthText = 170;
-
+    bool click = false;
     return Scaffold(
       appBar: AppBar(
         title: Text('@${widget.pass}'),
@@ -45,112 +45,120 @@ class _ChatPageState extends State<ChatPage> {
         actions: [
           IconButton(
               onPressed: getEndPage,
-              icon: const Icon(Icons.arrow_downward_rounded))
+              icon: const Icon(Icons.arrow_downward_rounded)),
         ],
       ),
       body: SafeArea(
         child: ScrollConfiguration(
           behavior: MyBehavior(),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                StreamBuilder<QuerySnapshot>(
-                  stream: _stream,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.colorPink,
-                        ),
-                      );
-                    }
-                    return ListView.builder(
-                      controller: _scrollController,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        Map<String, dynamic> doc = snapshot.data!.docs[index]
-                            .data() as Map<String, dynamic>;
+            child: GestureDetector(
+              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.878,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: _stream,
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.colorPink,
+                              ),
+                            );
+                          }
+                          return ListView.builder(
+                            controller: _scrollController,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> doc =
+                                  snapshot.data!.docs[index].data()
+                                      as Map<String, dynamic>;
 
-                        ChatModel chatModel = ChatModel.fromJson(doc);
-                        chatModel.idMess =
-                            snapshot.data!.docs[index].reference.id;
-                        Timestamp time = chatModel.time!;
-                        DateTime toTime = time.toDate();
+                              ChatModel chatModel = ChatModel.fromJson(doc);
+                              chatModel.idMess =
+                                  snapshot.data!.docs[index].reference.id;
+                              Timestamp time = chatModel.time!;
+                              DateTime toTime = time.toDate();
 
-                        return widget.pass == "minh"
-                            ? GestureDetector(
-                                onLongPress: () {
-                                  onDelete(chatModel);
-                                },
-                                child: ChatItem(
-                                    width: chatModel.messenger!.length < 35
-                                        ? null
-                                        : widthText,
-                                    aligment: chatModel.user == "minh"
-                                        ? Alignment.topRight
-                                        : Alignment.topLeft,
-                                    textMess: chatModel.messenger!,
-                                    texTime:
-                                        '${toTime.hour} : ${toTime.minute} : ${toTime.second}'),
-                              )
-                            : GestureDetector(
-                                onLongPress: () {
-                                  onDelete(chatModel);
-                                },
-                                child: ChatItem(
-                                    width: chatModel.messenger!.length < 35
-                                        ? null
-                                        : widthText = 170.0,
-                                    aligment: doc["User"] == "ngan"
-                                        ? Alignment.topRight
-                                        : Alignment.topLeft,
-                                    textMess: chatModel.messenger!,
-                                    texTime:
-                                        '${toTime.hour} giờ ${toTime.second}'),
-                              );
-                      },
-                    );
-                  },
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 60.0,
-                    color: AppColors.colorWhite,
-                    child: Center(
-                      child: TextFormField(
-                        controller: _controller,
-                        decoration: InputDecoration(
-                          prefixIconColor: AppColors.colorWhite,
-                          hintText: 'Nhắn tin...',
-                          border: InputBorder.none,
-                          prefixIcon: const Icon(
-                            Icons.tag_faces,
-                          ),
-                          suffixIcon: InkWell(
-                            onTap: () {
-                              setState(() {
-                                onTapSend();
-                                _controller.text = '';
-                                FocusManager.instance.primaryFocus?.unfocus();
-                              });
+                              return widget.pass == "minh"
+                                  ? GestureDetector(
+                                      onLongPress: () {
+                                        onDelete(chatModel);
+                                      },
+                                      child: ChatItem(
+                                          width:
+                                              chatModel.messenger!.length < 35
+                                                  ? null
+                                                  : widthText,
+                                          aligment: chatModel.user == "minh"
+                                              ? Alignment.topRight
+                                              : Alignment.topLeft,
+                                          textMess: chatModel.messenger!,
+                                          texTime:
+                                              '${toTime.hour} : ${toTime.minute}'),
+                                    )
+                                  : GestureDetector(
+                                      onLongPress: () {
+                                        onDelete(chatModel);
+                                      },
+                                      child: ChatItem(
+                                          width:
+                                              chatModel.messenger!.length < 35
+                                                  ? null
+                                                  : widthText = 170.0,
+                                          aligment: doc["User"] == "ngan"
+                                              ? Alignment.topRight
+                                              : Alignment.topLeft,
+                                          textMess: chatModel.messenger!,
+                                          texTime:
+                                              '${toTime.hour} : ${toTime.minute}'),
+                                    );
                             },
-                            child: const Icon(
-                              Icons.send,
-                            ),
-                          ),
-                        ),
-                        cursorColor: AppColors.colorBlack,
+                          );
+                        },
                       ),
                     ),
-                  ),
+                    Expanded(
+                      flex: 0,
+                      child: Container(
+                        color: AppColors.colorWhite,
+                        child: Center(
+                          child: TextFormField(
+                            controller: _controller,
+                            decoration: InputDecoration(
+                              prefixIconColor: AppColors.colorWhite,
+                              hintText: 'Nhắn tin...',
+                              border: InputBorder.none,
+                              prefixIcon: const Icon(
+                                Icons.tag_faces,
+                              ),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  onTapSend();
+                                },
+                                child: const Icon(
+                                  Icons.send,
+                                ),
+                              ),
+                            ),
+                            cursorColor: AppColors.colorBlack,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom) *
+                            0.01)
+                  ],
                 ),
-                Padding(
-                    padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom) *
-                        0.01)
-              ],
+              ),
             ),
           ),
         ),
@@ -173,6 +181,9 @@ class _ChatPageState extends State<ChatPage> {
             // ignore: avoid_print, invalid_return_type_for_catch_error
             (onError) => print(onError.toString()),
           );
+
+      _controller.clear();
+      getEndPage;
     }
   }
 
@@ -225,9 +236,8 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
-  void getEndPage() {
-    _scrollController.jumpTo(
-      _scrollController.position.maxScrollExtent,
-    );
+  getEndPage() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 500), curve: Curves.easeOut);
   }
 }
