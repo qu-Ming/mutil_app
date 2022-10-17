@@ -20,144 +20,136 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   getEndPage();
-  // }
-
   final Stream<QuerySnapshot> _stream = FirebaseFirestore.instance
       .collection("Chat")
       .orderBy("Time", descending: false)
       .snapshots();
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  bool scrollToEnd = false;
 
   @override
   Widget build(BuildContext context) {
-    double widthText = 170;
-    bool click = false;
+    double widthText = 250;
     return Scaffold(
       appBar: AppBar(
         title: Text('@${widget.pass}'),
         backgroundColor: AppColors.colorPink,
-        actions: [
-          IconButton(
-              onPressed: getEndPage,
-              icon: const Icon(Icons.arrow_downward_rounded)),
-        ],
       ),
       body: SafeArea(
         child: ScrollConfiguration(
           behavior: MyBehavior(),
-          child: SingleChildScrollView(
-            child: GestureDetector(
-              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.878,
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: _stream,
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.colorPink,
-                              ),
-                            );
-                          }
-                          return ListView.builder(
-                            controller: _scrollController,
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              Map<String, dynamic> doc =
-                                  snapshot.data!.docs[index].data()
-                                      as Map<String, dynamic>;
-
-                              ChatModel chatModel = ChatModel.fromJson(doc);
-                              chatModel.idMess =
-                                  snapshot.data!.docs[index].reference.id;
-                              Timestamp time = chatModel.time!;
-                              DateTime toTime = time.toDate();
-
-                              return widget.pass == "minh"
-                                  ? GestureDetector(
-                                      onLongPress: () {
-                                        onDelete(chatModel);
-                                      },
-                                      child: ChatItem(
-                                          width:
-                                              chatModel.messenger!.length < 35
-                                                  ? null
-                                                  : widthText,
-                                          aligment: chatModel.user == "minh"
-                                              ? Alignment.topRight
-                                              : Alignment.topLeft,
-                                          textMess: chatModel.messenger!,
-                                          texTime:
-                                              '${toTime.hour} : ${toTime.minute}'),
-                                    )
-                                  : GestureDetector(
-                                      onLongPress: () {
-                                        onDelete(chatModel);
-                                      },
-                                      child: ChatItem(
-                                          width:
-                                              chatModel.messenger!.length < 35
-                                                  ? null
-                                                  : widthText = 170.0,
-                                          aligment: doc["User"] == "ngan"
-                                              ? Alignment.topRight
-                                              : Alignment.topLeft,
-                                          textMess: chatModel.messenger!,
-                                          texTime:
-                                              '${toTime.hour} : ${toTime.minute}'),
-                                    );
-                            },
+          child: GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.878,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: _stream,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.colorPink,
+                            ),
                           );
-                        },
-                      ),
+                        }
+
+                        return ListView.builder(
+                          controller: _scrollController,
+                          shrinkWrap: true,
+                          // itemCount: snapshot.data!.docs.length,
+                          itemCount: snapshot.data!.docs.length,
+
+                          itemBuilder: (context, index) {
+                            Map<String, dynamic> doc =
+                                snapshot.data!.docs[index].data()
+                                    as Map<String, dynamic>;
+
+                            ChatModel chatModel = ChatModel.fromJson(doc);
+                            chatModel.idMess =
+                                snapshot.data!.docs[index].reference.id;
+                            Timestamp time = chatModel.time!;
+                            DateTime toTime = time.toDate();
+
+                            return widget.pass == "minh"
+                                ? GestureDetector(
+                                    onLongPress: () {
+                                      onDelete(chatModel);
+                                    },
+                                    child: ChatItem(
+                                        width: chatModel.messenger!.length < 30
+                                            ? null
+                                            : widthText,
+                                        aligment: chatModel.user == "minh"
+                                            ? Alignment.topRight
+                                            : Alignment.topLeft,
+                                        textMess: chatModel.messenger!,
+                                        texTime:
+                                            '${toTime.hour} : ${toTime.minute}'),
+                                  )
+                                : GestureDetector(
+                                    onLongPress: () {
+                                      onDelete(chatModel);
+                                    },
+                                    child: ChatItem(
+                                        width: chatModel.messenger!.length < 30
+                                            ? null
+                                            : widthText,
+                                        aligment: doc["User"] == "ngan"
+                                            ? Alignment.topRight
+                                            : Alignment.topLeft,
+                                        textMess: chatModel.messenger!,
+                                        texTime:
+                                            '${toTime.hour} : ${toTime.minute}'),
+                                  );
+                          },
+                        );
+                      },
                     ),
-                    Expanded(
-                      flex: 0,
-                      child: Container(
-                        color: AppColors.colorWhite,
-                        child: Center(
-                          child: TextFormField(
-                            controller: _controller,
-                            decoration: InputDecoration(
-                              prefixIconColor: AppColors.colorWhite,
-                              hintText: 'Nhắn tin...',
-                              border: InputBorder.none,
-                              prefixIcon: const Icon(
-                                Icons.tag_faces,
-                              ),
-                              suffixIcon: InkWell(
-                                onTap: () {
+                  ),
+                  Expanded(
+                    flex: 0,
+                    child: Container(
+                      color: AppColors.colorWhite,
+                      child: Center(
+                        child: TextFormField(
+                          onTap: () {
+                            getEndPage();
+                          },
+                          controller: _controller,
+                          decoration: InputDecoration(
+                            prefixIconColor: AppColors.colorWhite,
+                            hintText: 'Nhắn tin...',
+                            border: InputBorder.none,
+                            prefixIcon: const Icon(
+                              Icons.tag_faces,
+                            ),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
                                   onTapSend();
-                                },
-                                child: const Icon(
-                                  Icons.send,
-                                ),
+                                });
+                              },
+                              child: const Icon(
+                                Icons.send,
                               ),
                             ),
-                            cursorColor: AppColors.colorBlack,
                           ),
+                          cursorColor: AppColors.colorBlack,
                         ),
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                                bottom:
-                                    MediaQuery.of(context).viewInsets.bottom) *
-                            0.01)
-                  ],
-                ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                              bottom:
+                                  MediaQuery.of(context).viewInsets.bottom) *
+                          0.01)
+                ],
               ),
             ),
           ),
@@ -183,7 +175,10 @@ class _ChatPageState extends State<ChatPage> {
           );
 
       _controller.clear();
-      getEndPage;
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOutSine);
+      FocusManager.instance.primaryFocus?.unfocus();
     }
   }
 
@@ -236,8 +231,8 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
-  getEndPage() {
+  getEndPage() async {
     _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+        duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
 }

@@ -29,12 +29,12 @@ class _PercentTabState extends State<PercentTab> {
           child: Column(
             children: [
               Container(
-                height: 100.0,
+                height: 150.0,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     color: AppColors.appBarColor,
                     borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(30))),
+                        BorderRadius.only(bottomRight: Radius.circular(12))),
                 child: Center(
                   child: TextComponent(
                     colorText: AppColors.colorWhite,

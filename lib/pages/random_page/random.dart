@@ -31,17 +31,18 @@ class _RandomState extends State<RandomTab> {
           child: Column(
             children: [
               Container(
-                height: 100.0,
+                height: 150.0,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     color: AppColors.colorPink,
                     borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(30))),
+                        BorderRadius.only(bottomLeft: Radius.circular(12))),
                 child: Center(
                   child: TextComponent(
+                    maxLines: 5,
                     colorText: AppColors.colorWhite,
                     text: title,
-                    textSize: AppDimens.text_size_28,
+                    textSize: AppDimens.text_size_22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -176,8 +177,8 @@ class _RandomState extends State<RandomTab> {
 }
 
 onPress() {
-  // number = number + 1;
-  number = 1750;
+  number = number + 1;
+  // number = 2000;
   if (number == 50) {
     title = 'Nice';
   } else if (number == 100) {
@@ -189,14 +190,19 @@ onPress() {
   } else if (number == 750) {
     title = 'Huyền thoại là đây';
   } else if (number == 912) {
-    title = 'I love you';
-  } else if (number == 1000) {
     title = 'Moazzzzzzzzzz';
+  } else if (number == 1000) {
+    title = 'I LOVE YOU 3000';
+  } else if (number == 1250) {
+    title = 'Yêu em Ngân đồ da';
   } else if (number == 1500) {
     title = 'Em là lý tưởng sống\ncủa đời anh';
   } else if (number == 1750) {
     title =
-        'Thanks tạo hóa ban cho anh đôi mắt\nđể anh có thể ngắm em\nmỗi ngày';
+        'Thanks tạo hóa ban cho anh đôi mắt 👀 để anh có thể ngắm em mỗi ngày 🤍 mãi yêu em moazzz';
+  } else if (number == 2000) {
+    title =
+        'Tuy anh hơi bận không giành thời gian cho em được nhưng sau này anh muốn em sống không thiếu gì ạ huhu em vất vả rồi\nAnh thương em ạ 🤍';
   }
 }
 
@@ -204,5 +210,21 @@ onPress1() {
   number = number - 1;
   if (number == -20) {
     title = 'Lối đi riêng';
+  } else if (number == -40) {
+    title = ':))))))) em vẫn còn bấm à';
+  } else if (number == -40) {
+    title = ':))))))) cố chấp thế';
+  } else if (number == -60) {
+    title = ':)))))))))))))))))))))))))';
+  } else if (number == -80) {
+    title = 'Anh yêu bé 😍';
+  } else if (number == -100) {
+    title = 'Hết rồi bác 2';
+  } else if (number == -120) {
+    title = 'Cố chấp thế 🙂';
+  } else if (number == -140) {
+    title = 'Hết thiệt rồi bác 🙂';
+  } else if (number == -160) {
+    title = 'qq hết rồi e bấm nữa tốn thời gian ráng chịu 🙂';
   }
 }
