@@ -46,7 +46,6 @@ class _ChatPageState extends State<ChatPage> {
               child: Column(
                 children: [
                   Expanded(
-                    flex: 1,
                     child: StreamBuilder<QuerySnapshot>(
                       stream: _stream,
                       builder: (context, snapshot) {
@@ -61,9 +60,7 @@ class _ChatPageState extends State<ChatPage> {
                         return ListView.builder(
                           controller: _scrollController,
                           shrinkWrap: true,
-                          // itemCount: snapshot.data!.docs.length,
                           itemCount: snapshot.data!.docs.length,
-
                           itemBuilder: (context, index) {
                             Map<String, dynamic> doc =
                                 snapshot.data!.docs[index].data()
@@ -74,6 +71,16 @@ class _ChatPageState extends State<ChatPage> {
                                 snapshot.data!.docs[index].reference.id;
                             Timestamp time = chatModel.time!;
                             DateTime toTime = time.toDate();
+
+                            FirebaseFirestore.instance
+                                .collection("Chat")
+                                .snapshots()
+                                .listen((event) {
+                              if (event.docs.length >
+                                  snapshot.data!.docs.length) {
+                                getEndPage();
+                              }
+                            });
 
                             return widget.pass == "minh"
                                 ? GestureDetector(
@@ -170,15 +177,11 @@ class _ChatPageState extends State<ChatPage> {
           .add(widget.chatModel.toJson())
           .then((value) {})
           .catchError(
-            // ignore: avoid_print, invalid_return_type_for_catch_error
             (onError) => print(onError.toString()),
           );
 
       _controller.clear();
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOutSine);
-      FocusManager.instance.primaryFocus?.unfocus();
+      getEndPage();
     }
   }
 
@@ -231,8 +234,14 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
-  getEndPage() async {
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+  getEndPage() {
+    _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent + 150.0,
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.ease);
+  }
+
+  getEnd() {
+    _scrollController.jumpTo(100);
   }
 }
