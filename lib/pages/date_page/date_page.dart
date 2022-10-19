@@ -25,11 +25,16 @@ class _DatePageState extends State<DatePage> {
   int? thang;
   int? ngay;
 
+  int n = 1;
+
   String assetImageN = 'assets/backgrounds/image.jpeg';
 
   String assetImageM = 'assets/backgrounds/image2.JPEG';
 
   String background = 'assets/backgrounds/bglo.jpg';
+
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void initState() {
     super.initState();
@@ -94,11 +99,11 @@ class _DatePageState extends State<DatePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: (() {}),
+                          onTap: (() {
+                            openDialog();
+                          }),
                           child: CircleAvatarComponent(
-                            name: 'Ngân',
-                            assetImage: assetImageM,
-                          ),
+                              name: 'Ngân', assetImage: assetImageM),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -120,7 +125,7 @@ class _DatePageState extends State<DatePage> {
                         ),
                         GestureDetector(
                           onTap: (() {
-                            openDialog(context);
+                            openDialog();
                           }),
                           child: CircleAvatarComponent(
                             name: 'Minh',
@@ -202,22 +207,33 @@ class _DatePageState extends State<DatePage> {
     ngay = ((dayBeen % 365) % 30);
   }
 
-  openDialog(context) {
+  openDialog() {
     showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text('Đổi ảnh'),
-        content: TextFormField(
-          decoration:
-              const InputDecoration(labelText: 'Nhập đường liên kết ảnh vào'),
-        ),
-        actions: [
-          Center(
-              child: ElevatedButton(
-                  onPressed: () {}, child: const Text('Xác nhận')))
-        ],
-      ),
-    );
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Đổi ảnh'),
+              content: SizedBox(
+                height: 100.0,
+                child: Column(children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        openGallary();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.colorPink)),
+                      child: const Text('Thư viện')),
+                  ElevatedButton(
+                      onPressed: () {
+                        openCamera();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.colorPink)),
+                      child: const Text('Máy ảnh')),
+                ]),
+              ),
+            ));
   }
 
   onClick() {
@@ -226,5 +242,22 @@ class _DatePageState extends State<DatePage> {
         seeDay = !seeDay;
       },
     );
+  }
+
+  onTaped() {
+    n = n++;
+  }
+
+  Future openGallary() async {
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image == null) {
+      return;
+    } else {
+      final imageTem = XFile(image.path);
+    }
+  }
+
+  Future openCamera() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
   }
 }

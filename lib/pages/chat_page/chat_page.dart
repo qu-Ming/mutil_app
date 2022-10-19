@@ -49,72 +49,86 @@ class _ChatPageState extends State<ChatPage> {
                     child: StreamBuilder<QuerySnapshot>(
                       stream: _stream,
                       builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
+                        // if (!snapshot.hasData) {
+                        //   return const Center(
+                        //     child: CircularProgressIndicator(
+                        //       color: AppColors.colorPink,
+                        //     ),
+                        //   );
+                        // }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.colorPink,
-                            ),
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ListView.builder(
+                            controller: _scrollController,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> doc =
+                                  snapshot.data!.docs[index].data()
+                                      as Map<String, dynamic>;
+
+                              ChatModel chatModel = ChatModel.fromJson(doc);
+                              chatModel.idMess =
+                                  snapshot.data!.docs[index].reference.id;
+                              Timestamp time = chatModel.time!;
+                              DateTime toTime = time.toDate();
+
+                              // getEndPage();
+
+                              FirebaseFirestore.instance
+                                  .collection("Chat")
+                                  .snapshots()
+                                  .listen((event) {
+                                if (event.docs.length >
+                                    snapshot.data!.docs.length) {
+                                  getEndPage();
+                                }
+                              });
+
+                              return widget.pass == "minh"
+                                  ? GestureDetector(
+                                      onLongPress: () {
+                                        onDelete(chatModel);
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                      },
+                                      child: ChatItem(
+                                          width:
+                                              chatModel.messenger!.length < 30
+                                                  ? null
+                                                  : widthText,
+                                          aligment: chatModel.user == "minh"
+                                              ? Alignment.topRight
+                                              : Alignment.topLeft,
+                                          textMess: chatModel.messenger!,
+                                          texTime:
+                                              '${toTime.hour} : ${toTime.minute}'),
+                                    )
+                                  : GestureDetector(
+                                      onLongPress: () {
+                                        onDelete(chatModel);
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                      },
+                                      child: ChatItem(
+                                          width:
+                                              chatModel.messenger!.length < 30
+                                                  ? null
+                                                  : widthText,
+                                          aligment: doc["User"] == "ngan"
+                                              ? Alignment.topRight
+                                              : Alignment.topLeft,
+                                          textMess: chatModel.messenger!,
+                                          texTime:
+                                              '${toTime.hour} : ${toTime.minute}'),
+                                    );
+                            },
                           );
                         }
-
-                        return ListView.builder(
-                          controller: _scrollController,
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            Map<String, dynamic> doc =
-                                snapshot.data!.docs[index].data()
-                                    as Map<String, dynamic>;
-
-                            ChatModel chatModel = ChatModel.fromJson(doc);
-                            chatModel.idMess =
-                                snapshot.data!.docs[index].reference.id;
-                            Timestamp time = chatModel.time!;
-                            DateTime toTime = time.toDate();
-
-                            FirebaseFirestore.instance
-                                .collection("Chat")
-                                .snapshots()
-                                .listen((event) {
-                              if (event.docs.length >
-                                  snapshot.data!.docs.length) {
-                                getEndPage();
-                              }
-                            });
-
-                            return widget.pass == "minh"
-                                ? GestureDetector(
-                                    onLongPress: () {
-                                      onDelete(chatModel);
-                                    },
-                                    child: ChatItem(
-                                        width: chatModel.messenger!.length < 30
-                                            ? null
-                                            : widthText,
-                                        aligment: chatModel.user == "minh"
-                                            ? Alignment.topRight
-                                            : Alignment.topLeft,
-                                        textMess: chatModel.messenger!,
-                                        texTime:
-                                            '${toTime.hour} : ${toTime.minute}'),
-                                  )
-                                : GestureDetector(
-                                    onLongPress: () {
-                                      onDelete(chatModel);
-                                    },
-                                    child: ChatItem(
-                                        width: chatModel.messenger!.length < 30
-                                            ? null
-                                            : widthText,
-                                        aligment: doc["User"] == "ngan"
-                                            ? Alignment.topRight
-                                            : Alignment.topLeft,
-                                        textMess: chatModel.messenger!,
-                                        texTime:
-                                            '${toTime.hour} : ${toTime.minute}'),
-                                  );
-                          },
-                        );
                       },
                     ),
                   ),
@@ -124,9 +138,6 @@ class _ChatPageState extends State<ChatPage> {
                       color: AppColors.colorWhite,
                       child: Center(
                         child: TextFormField(
-                          onTap: () {
-                            getEndPage();
-                          },
                           controller: _controller,
                           decoration: InputDecoration(
                             prefixIconColor: AppColors.colorWhite,
@@ -239,9 +250,5 @@ class _ChatPageState extends State<ChatPage> {
         _scrollController.position.maxScrollExtent + 150.0,
         duration: const Duration(milliseconds: 1000),
         curve: Curves.ease);
-  }
-
-  getEnd() {
-    _scrollController.jumpTo(100);
   }
 }

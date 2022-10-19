@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mutil_app/pages/bottom_navigator.dart';
 import 'package:mutil_app/pages/chat_page/chat_page.dart';
 import 'package:mutil_app/pages/chat_page/security_page.dart';
+import 'package:mutil_app/pages/chat_page/test_page.dart';
 
 import 'firebase_options.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BottomNavigator(),
+      // home: TestPage(),
     );
   }
 }
