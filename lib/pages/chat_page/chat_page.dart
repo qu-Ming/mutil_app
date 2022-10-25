@@ -49,13 +49,6 @@ class _ChatPageState extends State<ChatPage> {
                     child: StreamBuilder<QuerySnapshot>(
                       stream: _stream,
                       builder: (context, snapshot) {
-                        // if (!snapshot.hasData) {
-                        //   return const Center(
-                        //     child: CircularProgressIndicator(
-                        //       color: AppColors.colorPink,
-                        //     ),
-                        //   );
-                        // }
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Center(
@@ -76,8 +69,6 @@ class _ChatPageState extends State<ChatPage> {
                                   snapshot.data!.docs[index].reference.id;
                               Timestamp time = chatModel.time!;
                               DateTime toTime = time.toDate();
-
-                              // getEndPage();
 
                               FirebaseFirestore.instance
                                   .collection("Chat")
@@ -178,7 +169,7 @@ class _ChatPageState extends State<ChatPage> {
 
   onTapSend() async {
     if (_controller.text.isEmpty) {
-      print('khong the xoa');
+      print('khong the gui');
     } else {
       widget.chatModel.messenger = _controller.text;
       widget.chatModel.time = Timestamp.now();

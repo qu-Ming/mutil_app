@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'package:image/image.dart' as img;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:like_button/like_button.dart';
 import 'package:mutil_app/components/circle_avatar_component.dart';
@@ -15,6 +19,12 @@ class DatePage extends StatefulWidget {
 }
 
 class _DatePageState extends State<DatePage> {
+  @override
+  void initState() {
+    super.initState();
+    readDay();
+  }
+
   String dayBeenTogether = '';
   String sodau = '';
   String socuoi = '';
@@ -32,17 +42,48 @@ class _DatePageState extends State<DatePage> {
   String assetImageM = 'assets/backgrounds/image2.JPEG';
 
   String background = 'assets/backgrounds/bglo.jpg';
-
-  final ImagePicker _picker = ImagePicker();
-
-  @override
-  void initState() {
-    super.initState();
-    readDay();
-  }
-
   bool seeDay = true;
   bool isLiked = false;
+
+  XFile? hinhAnh1;
+  XFile? hinhAnh2;
+  Future openGallary() async {
+    try {
+      hinhAnh1 = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (hinhAnh1 == null) {
+        return;
+      }
+      final imageTem = XFile(hinhAnh1!.path);
+      setState(() {
+        hinhAnh1 = imageTem;
+      });
+    } on PlatformException catch (e) {
+      print('Failed $e');
+    }
+  }
+
+  Future openCamera() async {
+    hinhAnh2 = await ImagePicker().pickImage(source: ImageSource.camera);
+  }
+
+  Future openGallary2() async {
+    try {
+      hinhAnh2 = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (hinhAnh2 == null) {
+        return;
+      }
+      final imageTem = XFile(hinhAnh2!.path);
+      setState(() {
+        hinhAnh2 = imageTem;
+      });
+    } on PlatformException catch (e) {
+      print('Failed $e');
+    }
+  }
+
+  Future openCamera2() async {
+    hinhAnh2 = await ImagePicker().pickImage(source: ImageSource.camera);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,16 +102,23 @@ class _DatePageState extends State<DatePage> {
                             image: AssetImage(background), fit: BoxFit.cover)),
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: Text(
-                            seeDay == true
-                                ? "Ngày bên nhau"
-                                : "Tháng năm bên nhau",
-                            style: const TextStyle(
-                              fontFamily: "Poppins",
-                              fontSize: 12,
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.more_vert,
+                              color: AppColors.colorWhite,
                             ),
+                          ),
+                        ),
+                        Text(
+                          seeDay == true
+                              ? "Ngày bên nhau"
+                              : "Tháng năm bên nhau",
+                          style: const TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 12,
                           ),
                         ),
                         GestureDetector(
@@ -80,11 +128,11 @@ class _DatePageState extends State<DatePage> {
                           child: Text(
                             seeDay == true
                                 ? '$dayBeenTogether ngày'
-                                : '${nam}N ${thang}T ${ngay}N',
+                                : '${nam}N ${thang}T ${ngay}n',
                             style: const TextStyle(
                                 fontFamily: "Poppins",
                                 color: AppColors.colorWhite,
-                                fontSize: 50.0,
+                                fontSize: 45.0,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -98,13 +146,33 @@ class _DatePageState extends State<DatePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: (() {
-                            openDialog();
-                          }),
-                          child: CircleAvatarComponent(
-                              name: 'Ngân', assetImage: assetImageM),
-                        ),
+                        hinhAnh1 == null
+                            ? GestureDetector(
+                                onTap: (() {
+                                  openDialog();
+                                }),
+                                child: CircleAvatarComponent(
+                                  name: 'Ngân',
+                                  assetImage: assetImageM,
+                                ),
+                              )
+                            : Column(
+                                children: [
+                                  ClipOval(
+                                    child: Image.file(
+                                      File(hinhAnh1!.path),
+                                      fit: BoxFit.cover,
+                                      height: 75.0,
+                                      width: 75.0,
+                                    ),
+                                  ),
+                                  const TextComponent(
+                                    text: 'Ngân',
+                                    fontWeight: FontWeight.w600,
+                                    colorText: AppColors.colorPink,
+                                  )
+                                ],
+                              ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: LikeButton(
@@ -123,30 +191,49 @@ class _DatePageState extends State<DatePage> {
                             },
                           ),
                         ),
-                        GestureDetector(
-                          onTap: (() {
-                            openDialog();
-                          }),
-                          child: CircleAvatarComponent(
-                            name: 'Minh',
-                            assetImage: assetImageN,
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: (() {
+                        //     openDialog2();
+                        //   }),
+                        //   child: CircleAvatarComponent(
+                        //     name: 'Minh',
+                        //     assetImage: assetImageN,
+                        //   ),
+                        // ),
+
+                        hinhAnh2 == null
+                            ? GestureDetector(
+                                onTap: (() {
+                                  openDialog2();
+                                }),
+                                child: CircleAvatarComponent(
+                                  name: 'Minh',
+                                  assetImage: assetImageN,
+                                ),
+                              )
+                            : Column(
+                                children: [
+                                  ClipOval(
+                                    child: Image.file(
+                                      File(hinhAnh2!.path),
+                                      fit: BoxFit.cover,
+                                      height: 75.0,
+                                      width: 75.0,
+                                    ),
+                                  ),
+                                  const TextComponent(
+                                    text: 'Minh',
+                                    fontWeight: FontWeight.w600,
+                                    colorText: AppColors.colorPink,
+                                  )
+                                ],
+                              ),
                       ],
                     ),
                   ),
                 ],
                 clipBehavior: Clip.none,
               ),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.only(top: 95.0, left: 60.0, right: 60.0),
-              //   child: LinearProgressIndicator(
-              //     color: AppColors.colorLightRed,
-              //     backgroundColor: AppColors.colorGrey,
-              //     value: distance,
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 90, 10, 30),
                 child: Row(
@@ -236,6 +323,35 @@ class _DatePageState extends State<DatePage> {
             ));
   }
 
+  openDialog2() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Đổi ảnh'),
+              content: SizedBox(
+                height: 100.0,
+                child: Column(children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        openGallary2();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.colorPink)),
+                      child: const Text('Thư viện')),
+                  ElevatedButton(
+                      onPressed: () {
+                        openCamera2();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.colorPink)),
+                      child: const Text('Máy ảnh')),
+                ]),
+              ),
+            ));
+  }
+
   onClick() {
     setState(
       () {
@@ -246,18 +362,5 @@ class _DatePageState extends State<DatePage> {
 
   onTaped() {
     n = n++;
-  }
-
-  Future openGallary() async {
-    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image == null) {
-      return;
-    } else {
-      final imageTem = XFile(image.path);
-    }
-  }
-
-  Future openCamera() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
   }
 }
