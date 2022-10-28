@@ -191,16 +191,6 @@ class _DatePageState extends State<DatePage> {
                             },
                           ),
                         ),
-                        // GestureDetector(
-                        //   onTap: (() {
-                        //     openDialog2();
-                        //   }),
-                        //   child: CircleAvatarComponent(
-                        //     name: 'Minh',
-                        //     assetImage: assetImageN,
-                        //   ),
-                        // ),
-
                         hinhAnh2 == null
                             ? GestureDetector(
                                 onTap: (() {
@@ -268,7 +258,7 @@ class _DatePageState extends State<DatePage> {
     );
   }
 
-  Future readDay() async {
+  readDay() {
     String date = '${DateTime.parse('2017-12-09')}';
     int? dayBeen;
 

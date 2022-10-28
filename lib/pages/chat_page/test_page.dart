@@ -1,10 +1,8 @@
+// ignore_for_file: avoid_print
 import 'dart:io';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({Key? key}) : super(key: key);
@@ -48,16 +46,15 @@ class _TestPageState extends State<TestPage> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final mountainsRef = storeRef.child("/avatar_img/minh/");
-                  Directory appDocDir =
-                      await getApplicationDocumentsDirectory();
-                  String filePath = '${appDocDir.absolute}/file-to-upload.png';
-                  File file = File(filePath);
-                  try {
-                    await mountainsRef.putFile(file);
-                  } on FirebaseException catch (e) {
-                    print(e);
-                  }
+                  upLoadImg(
+                      file: File(_image!.path),
+                      callback: (url) {
+                        /* Update user model*/
+                        // user.url = url
+
+                        // update userModel to firebase
+                        // CatchNetworkImage
+                      });
                 },
                 child: const Text('Đăng ảnh'),
               ),
@@ -66,5 +63,27 @@ class _TestPageState extends State<TestPage> {
         ),
       ),
     );
+  }
+
+  Future upLoadImg({File? file, required Function(String) callback}) async {
+    String? url;
+    String filePath = 'avatar_img' '/' + file!.path.split('/').last;
+
+    try {
+      await FirebaseStorage.instance.ref(filePath).putFile(file);
+      url = await getUrl(filePath);
+      if (url.isNotEmpty && url.contains('https')) {
+        callback(url);
+      }
+    } on FirebaseException catch (e) {
+      debugPrint(e.toString());
+    }
+    debugPrint(url);
+  }
+
+  static Future<String> getUrl(String path) async {
+    String downloadURL =
+        await FirebaseStorage.instance.ref(path).getDownloadURL();
+    return downloadURL;
   }
 }
