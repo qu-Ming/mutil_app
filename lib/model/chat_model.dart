@@ -5,6 +5,7 @@ class ChatModel {
   String? messenger;
   Timestamp? time;
   String? user;
+  String? imgUrl;
 
   ChatModel({this.time, this.messenger, this.user});
 
@@ -12,6 +13,7 @@ class ChatModel {
     messenger = json['Messenger'] ?? '';
     time = json['Time'] ?? '';
     user = json['User'] ?? '';
+    imgUrl = json['ImgUrl'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -19,6 +21,7 @@ class ChatModel {
     map["Messenger"] = messenger;
     map["Time"] = time;
     map["User"] = user;
+    map['ImgUrl'] = imgUrl;
     return map;
   }
 }

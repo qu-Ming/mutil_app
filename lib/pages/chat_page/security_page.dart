@@ -44,7 +44,7 @@ class _SecurityPageState extends State<SecurityPage> {
                       backgroundColor:
                           MaterialStateProperty.all(AppColors.colorPink)),
                   onPressed: () {
-                    if (security.text == "m912") {
+                    if (security.text == "m") {
                       String pass = "minh";
                       Navigator.push(
                           context,
@@ -52,7 +52,7 @@ class _SecurityPageState extends State<SecurityPage> {
                               builder: (context) => ChatPage(
                                     pass: pass,
                                   )));
-                    } else if (security.text == "n912") {
+                    } else if (security.text == "n") {
                       String pass = "ngan";
                       Navigator.push(
                           context,

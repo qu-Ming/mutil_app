@@ -40,6 +40,8 @@ dependencies:
   firebase_core: ^1.24.0
   cloud_firestore: ^3.5.0
   image_picker: ^0.8.6
+  firebase_storage: ^10.3.11
+  path_provider: ^2.0.11
 
 
 
