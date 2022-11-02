@@ -34,11 +34,11 @@ class ChatItem extends StatelessWidget {
             children: [
               Text(
                 textMess,
-                style: const TextStyle(fontSize: AppDimens.text_size_16),
+                style: const TextStyle(fontSize: AppDimens.textSize_16),
               ),
               TextComponent(
                 text: texTime,
-                textSize: AppDimens.text_size_10,
+                textSize: AppDimens.textSize_10,
                 colorText: AppColors.colorGreyText,
               )
             ],

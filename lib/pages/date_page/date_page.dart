@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
-import 'package:image/image.dart' as img;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -232,7 +233,7 @@ class _DatePageState extends State<DatePage> {
                     TextComponent(
                       text: sodau,
                       colorText: AppColors.colorPink,
-                      textSize: AppDimens.text_size_14,
+                      textSize: AppDimens.textSize_14,
                     ),
                     SizedBox(
                       height: 7,
@@ -245,7 +246,7 @@ class _DatePageState extends State<DatePage> {
                     ),
                     TextComponent(
                       text: socuoi,
-                      textSize: AppDimens.text_size_14,
+                      textSize: AppDimens.textSize_14,
                       colorText: AppColors.colorPink,
                     ),
                   ],

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_return_type_for_catch_error, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mutil_app/components/chat_item.dart';
@@ -197,12 +199,12 @@ class _ChatPageState extends State<ChatPage> {
           title: const TextComponent(
             text: 'EM MUỐN THU HỒI?',
             fontWeight: FontWeight.w600,
-            textSize: AppDimens.text_size_14,
+            textSize: AppDimens.textSize_14,
           ),
           content: const TextComponent(
             text: 'Em chắc chưa?',
             fontWeight: FontWeight.w500,
-            textSize: AppDimens.text_size_14,
+            textSize: AppDimens.textSize_14,
             colorText: AppColors.colorGreyText,
           ),
           actions: [
@@ -214,7 +216,7 @@ class _ChatPageState extends State<ChatPage> {
                   text: 'Nô',
                   fontWeight: FontWeight.bold,
                   colorText: AppColors.colorPink,
-                  textSize: AppDimens.text_size_14,
+                  textSize: AppDimens.textSize_14,
                 )),
             TextButton(
                 onPressed: () {
@@ -228,7 +230,7 @@ class _ChatPageState extends State<ChatPage> {
                   text: 'Thu hồi',
                   fontWeight: FontWeight.bold,
                   colorText: AppColors.colorPink,
-                  textSize: AppDimens.text_size_14,
+                  textSize: AppDimens.textSize_14,
                 )),
           ],
         ),

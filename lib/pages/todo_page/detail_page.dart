@@ -46,7 +46,7 @@ class _DetailPage extends State<DetailPage> {
             },
             icon: const Icon(
               Icons.chevron_left,
-              size: AppDimens.icon_size_28,
+              size: AppDimens.iconSize_28,
             )),
         actions: [
           TextButton(
@@ -67,7 +67,7 @@ class _DetailPage extends State<DetailPage> {
               child: const TextComponent(
                 text: 'Lưu',
                 fontWeight: FontWeight.w500,
-                textSize: AppDimens.text_size_16,
+                textSize: AppDimens.textSize_16,
                 colorText: AppColors.colorWhite,
               ))
           // IconButton(
@@ -105,13 +105,13 @@ class _DetailPage extends State<DetailPage> {
                         enabled: isEdit,
                         controller: titleController,
                         style: const TextStyle(
-                            fontSize: AppDimens.text_size_18,
+                            fontSize: AppDimens.textSize_18,
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w600),
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintStyle: TextStyle(
-                              fontSize: AppDimens.text_size_18,
+                              fontSize: AppDimens.textSize_18,
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w600),
                         ),
@@ -137,7 +137,7 @@ class _DetailPage extends State<DetailPage> {
               TextFormField(
                 enabled: isEdit,
                 style: const TextStyle(
-                  fontSize: AppDimens.text_size_14,
+                  fontSize: AppDimens.textSize_14,
                   fontFamily: 'Montserrat',
                 ),
                 controller: contentController,
@@ -145,7 +145,7 @@ class _DetailPage extends State<DetailPage> {
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintStyle: TextStyle(
-                    fontSize: AppDimens.text_size_14,
+                    fontSize: AppDimens.textSize_14,
                     fontFamily: 'Montserrat',
                   ),
                 ),

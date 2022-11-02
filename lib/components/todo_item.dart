@@ -51,7 +51,7 @@ class TodoItem extends StatelessWidget {
                       child: TextComponent(
                         text: title,
                         fontWeight: FontWeight.w600,
-                        textSize: AppDimens.text_size_16,
+                        textSize: AppDimens.textSize_16,
                       ),
                     ),
                     Align(
@@ -61,7 +61,7 @@ class TodoItem extends StatelessWidget {
                         child: TextComponent(
                           maxLines: 1,
                           text: content,
-                          textSize: AppDimens.text_size_12,
+                          textSize: AppDimens.textSize_12,
                         ),
                       ),
                     ),
@@ -84,7 +84,7 @@ class TodoItem extends StatelessWidget {
                 child: TextComponent(
                   text: dayCreate1,
                   colorText: AppColors.colorGreyText,
-                  textSize: AppDimens.text_size_10,
+                  textSize: AppDimens.textSize_10,
                   fontWeight: FontWeight.w100,
                 ),
               ),
@@ -93,7 +93,7 @@ class TodoItem extends StatelessWidget {
                 child: TextComponent(
                   text: dayCreate2,
                   colorText: AppColors.colorGreyText,
-                  textSize: AppDimens.text_size_10,
+                  textSize: AppDimens.textSize_10,
                   fontWeight: FontWeight.w100,
                 ),
               ),
