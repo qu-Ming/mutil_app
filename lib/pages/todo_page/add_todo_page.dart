@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mutil_app/components/text_component.dart';
 import 'package:mutil_app/model/todo_model.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 import 'package:mutil_app/utils/const/app_dimens.dart';
@@ -50,6 +51,17 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     // ignore: avoid_print, invalid_return_type_for_catch_error
                     (onError) => print(onError.toString()),
                   );
+
+              const SnackBar snackBar = SnackBar(
+                content: TextComponent(
+                  text: 'Thim thành công !',
+                  colorText: AppColors.colorWhite,
+                  fontWeight: FontWeight.bold,
+                ),
+                backgroundColor: AppColors.colorPink,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
               Navigator.pop(context);
             },
             icon: const Icon(

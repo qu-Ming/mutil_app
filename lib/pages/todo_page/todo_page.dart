@@ -21,8 +21,10 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPagePageState extends State<TodoPage> {
-  final Stream<QuerySnapshot> _stream =
-      FirebaseFirestore.instance.collection("Todo").snapshots();
+  final Stream<QuerySnapshot> _stream = FirebaseFirestore.instance
+      .collection("Todo")
+      .orderBy("Time", descending: true)
+      .snapshots();
   bool nonCheck = false;
 
   bool checked = false;
@@ -255,6 +257,23 @@ class _TodoPagePageState extends State<TodoPage> {
                                                   .collection("Todo")
                                                   .doc(todoModel.idTodo)
                                                   .delete();
+
+                                              const SnackBar snackBar =
+                                                  SnackBar(
+                                                duration: Duration(
+                                                    milliseconds: 2000),
+                                                content: TextComponent(
+                                                  text: 'Đã xóa ghi chú !',
+                                                  colorText:
+                                                      AppColors.colorWhite,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                backgroundColor:
+                                                    AppColors.colorPink,
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+
                                               Navigator.pop(context);
                                             },
                                             child: const TextComponent(
