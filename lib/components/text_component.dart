@@ -7,7 +7,7 @@ class TextComponent extends StatelessWidget {
   const TextComponent(
       {Key? key,
       required this.text,
-      this.textSize = AppDimens.text_size_12,
+      this.textSize = AppDimens.textSize_12,
       this.fontWeight = FontWeight.normal,
       this.colorText = AppColors.colorBlack,
       this.maxLines})

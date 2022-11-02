@@ -7,7 +7,7 @@ class ChatModel {
   String? user;
   String? imgUrl;
 
-  ChatModel({this.time, this.messenger, this.user});
+  ChatModel({this.time, this.messenger, this.user, this.imgUrl, this.idMess});
 
   ChatModel.fromJson(dynamic json) {
     messenger = json['Messenger'] ?? '';
@@ -22,6 +22,7 @@ class ChatModel {
     map["Time"] = time;
     map["User"] = user;
     map['ImgUrl'] = imgUrl;
+
     return map;
   }
 }

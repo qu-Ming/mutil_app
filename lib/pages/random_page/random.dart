@@ -42,7 +42,7 @@ class _RandomState extends State<RandomTab> {
                     maxLines: 5,
                     colorText: AppColors.colorWhite,
                     text: title,
-                    textSize: AppDimens.text_size_22,
+                    textSize: AppDimens.textSize_22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -95,7 +95,7 @@ class _RandomState extends State<RandomTab> {
                   ),
                   child: const Center(
                     child: TextComponent(
-                      textSize: AppDimens.text_size_20,
+                      textSize: AppDimens.textSize_20,
                       text: 'Xác nhận',
                       colorText: AppColors.colorWhite,
                     ),

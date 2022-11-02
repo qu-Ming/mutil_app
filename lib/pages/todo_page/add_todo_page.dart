@@ -32,7 +32,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
             },
             icon: const Icon(
               Icons.chevron_left,
-              size: AppDimens.icon_size_28,
+              size: AppDimens.iconSize_28,
             )),
         actions: [
           IconButton(
@@ -54,7 +54,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
             },
             icon: const Icon(
               Icons.check,
-              size: AppDimens.icon_size_28,
+              size: AppDimens.iconSize_28,
             ),
           ),
         ],
@@ -69,14 +69,14 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 child: TextFormField(
                   controller: titleController,
                   style: const TextStyle(
-                      fontSize: AppDimens.text_size_18,
+                      fontSize: AppDimens.textSize_18,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w600),
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Nhập tiêu đề',
                     hintStyle: TextStyle(
-                        fontSize: AppDimens.text_size_18,
+                        fontSize: AppDimens.textSize_18,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w600),
                   ),
@@ -84,7 +84,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
               ),
               TextFormField(
                 style: const TextStyle(
-                  fontSize: AppDimens.text_size_14,
+                  fontSize: AppDimens.textSize_14,
                   fontFamily: 'Montserrat',
                 ),
                 controller: contentController,
@@ -93,7 +93,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                   border: InputBorder.none,
                   hintText: 'Nội dung',
                   hintStyle: TextStyle(
-                    fontSize: AppDimens.text_size_14,
+                    fontSize: AppDimens.textSize_14,
                     fontFamily: 'Montserrat',
                   ),
                 ),

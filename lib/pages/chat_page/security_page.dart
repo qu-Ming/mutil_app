@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mutil_app/components/text_component.dart';
 import 'package:mutil_app/pages/chat_page/chat_page.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 

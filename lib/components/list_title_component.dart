@@ -20,7 +20,7 @@ class ListTitleComponent extends StatelessWidget {
         children: [
           Icon(
             iconData,
-            size: AppDimens.icon_size_28,
+            size: AppDimens.iconSize_28,
             color: AppColors.colorGreyText,
           ),
           TextComponent(

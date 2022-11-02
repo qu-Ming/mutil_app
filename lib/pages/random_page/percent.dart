@@ -39,7 +39,7 @@ class _PercentTabState extends State<PercentTab> {
                   child: TextComponent(
                     colorText: AppColors.colorWhite,
                     text: title,
-                    textSize: AppDimens.text_size_28,
+                    textSize: AppDimens.textSize_28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -92,7 +92,7 @@ class _PercentTabState extends State<PercentTab> {
                   ),
                   child: const Center(
                     child: TextComponent(
-                      textSize: AppDimens.text_size_20,
+                      textSize: AppDimens.textSize_20,
                       text: 'Xác nhận',
                       colorText: AppColors.colorWhite,
                     ),

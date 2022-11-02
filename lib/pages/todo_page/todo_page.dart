@@ -36,7 +36,7 @@ class _TodoPagePageState extends State<TodoPage> {
               onPressed: () => Scaffold.of(context).openDrawer(),
               icon: const Icon(
                 Icons.sort_rounded,
-                size: AppDimens.icon_size_28,
+                size: AppDimens.iconSize_28,
               )),
         ),
         backgroundColor: AppColors.colorPink,
@@ -44,7 +44,7 @@ class _TodoPagePageState extends State<TodoPage> {
         title: const TextComponent(
           text: 'Danh sách ghi chú',
           fontWeight: FontWeight.w500,
-          textSize: AppDimens.text_size_18,
+          textSize: AppDimens.textSize_18,
           colorText: AppColors.colorWhite,
         ),
       ),
@@ -61,7 +61,7 @@ class _TodoPagePageState extends State<TodoPage> {
                   child: TextComponent(
                 text: 'Điều chỉnh ghi chú',
                 fontWeight: FontWeight.w600,
-                textSize: AppDimens.text_size_18,
+                textSize: AppDimens.textSize_18,
                 colorText: AppColors.colorWhite,
               )),
             ),
@@ -230,12 +230,12 @@ class _TodoPagePageState extends State<TodoPage> {
                                       title: const TextComponent(
                                         text: 'EM MUỐN XÓA?',
                                         fontWeight: FontWeight.w600,
-                                        textSize: AppDimens.text_size_14,
+                                        textSize: AppDimens.textSize_14,
                                       ),
                                       content: const TextComponent(
                                         text: 'Em chắc chưa?',
                                         fontWeight: FontWeight.w500,
-                                        textSize: AppDimens.text_size_14,
+                                        textSize: AppDimens.textSize_14,
                                         colorText: AppColors.colorGreyText,
                                       ),
                                       actions: [
@@ -247,7 +247,7 @@ class _TodoPagePageState extends State<TodoPage> {
                                               text: 'Nô',
                                               fontWeight: FontWeight.bold,
                                               colorText: AppColors.colorPink,
-                                              textSize: AppDimens.text_size_14,
+                                              textSize: AppDimens.textSize_14,
                                             )),
                                         TextButton(
                                             onPressed: () {
@@ -261,7 +261,7 @@ class _TodoPagePageState extends State<TodoPage> {
                                               text: 'Sure',
                                               fontWeight: FontWeight.bold,
                                               colorText: AppColors.colorPink,
-                                              textSize: AppDimens.text_size_14,
+                                              textSize: AppDimens.textSize_14,
                                             )),
                                       ],
                                     ),
