@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mutil_app/pages/chat_page/test_page.dart';
 
 import 'firebase_options.dart';
+import 'pages/chat_page/test_page.dart';
 
 // void main() {
 //   runApp(const MyApp());

@@ -46,15 +46,24 @@ class _TestPageState extends State<TestPage> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  upLoadImg(
-                      file: File(_image!.path),
-                      callback: (url) {
-                        /* Update user model*/
-                        // user.url = url
+                  if (_image != null) {
+                    upLoadImg(
+                        file: File(_image!.path),
+                        callback: (url) {
+                          /* Update user model*/
+                          // user.url = url
 
-                        // update userModel to firebase
-                        // CatchNetworkImage
-                      });
+                          // update userModel to firebase
+                          // CatchNetworkImage
+                        });
+
+                    const SnackBar _snackBar = SnackBar(
+                      content: Text('Success !'),
+                      duration: Duration(milliseconds: 2000),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+                  }
                 },
                 child: const Text('Đăng ảnh'),
               ),

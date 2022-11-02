@@ -70,24 +70,6 @@ class _DetailPage extends State<DetailPage> {
                 textSize: AppDimens.textSize_16,
                 colorText: AppColors.colorWhite,
               ))
-          // IconButton(
-          //   onPressed: () async {
-          //     TodoModel todo = TodoModel();
-          //     todo.title = titleController.text;
-          //     todo.content = contentController.text;
-          //     todo.dayCreate = Timestamp.now();
-          //     FirebaseFirestore.instance
-          //         .collection("Todo")
-          //         .add(todo.toJson())
-          //         .then((value) {})
-          //         .catchError(
-          //           // ignore: avoid_print, invalid_return_type_for_catch_error
-          //           (onError) => print(onError.toString()),
-          //         );
-          //     Navigator.pop(context);
-          //   },
-          //   icon: const Icon(Icons.check),
-          // ),
         ],
       ),
       body: Padding(
