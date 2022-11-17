@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mutil_app/pages/ui_test/test_login_page.dart';
 
 import 'firebase_options.dart';
+import 'pages/bottom_navigator.dart';
 import 'pages/chat_page/test_page.dart';
 
 // void main() {
@@ -22,9 +24,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      // home: BottomNavigator(),
-      home: TestPage(),
-    );
+        debugShowCheckedModeBanner: false,
+        // home: BottomNavigator(),
+        // home: TestPage(),
+        home: TestLoginPage());
   }
 }
