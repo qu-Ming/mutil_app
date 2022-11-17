@@ -17,7 +17,9 @@ class TestPage extends StatefulWidget {
 class _TestPageState extends State<TestPage> {
   XFile? _image;
   final storeRef = FirebaseStorage.instance.ref();
-
+  final userRef =
+      FirebaseFirestore.instance.collection('User').doc('user_minh');
+  //  final docRef = storeRef.child('User').child('path').bucket;
   openGallary() async {
     _image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (_image == null) {
@@ -27,6 +29,13 @@ class _TestPageState extends State<TestPage> {
         _image = _image;
       });
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getUser();
+    super.initState();
   }
 
   @override
@@ -42,7 +51,9 @@ class _TestPageState extends State<TestPage> {
                     ? const CircleAvatar(
                         child: Icon(Icons.person),
                       )
-                    : Image.file(File(_image!.path)),
+                    : Image.file(
+                        File(_image!.path),
+                      ),
                 ElevatedButton(
                   onPressed: () async {
                     openGallary();
@@ -80,39 +91,49 @@ class _TestPageState extends State<TestPage> {
                       ScaffoldMessenger.of(context).showSnackBar(_snackBar);
                     }
                   },
-                  child: const Text('Đăng ảnh'),
+                  child: const Text('Đăng ảnh Minh'),
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    print('asd');
-                  },
-                  child: const Text('Check'),
-                ),
+                    if (_image != null) {
+                      upLoadImg(
+                          file: File(_image!.path),
+                          callback: (url) {
+                            /* Update user model*/
+                            // user.url = url
 
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 10.0),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 10.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: AppColors.colorWhite),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text('1'),
-                            Text(
-                                'asssaaaaaaaaaaaaaaaaaaaaaaaaaassssss12321321'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                            Map<String, dynamic> userUpdate =
+                                UserModel().toJson();
+                            userUpdate = {
+                              'USER_NAME': 'Ngan',
+                              'USER_IMG_URL': url,
+                            };
+                            FirebaseFirestore.instance
+                                .collection('User')
+                                .doc('user_ngan')
+                                .update(userUpdate);
+                            // update userModel to firebase
+                            // CatchNetworkImage
+                          });
+
+                      const SnackBar _snackBar = SnackBar(
+                        content: Text('Success !'),
+                        duration: Duration(milliseconds: 2000),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+                    }
+                  },
+                  child: const Text('Đăng ảnh Ngan'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    getUser();
+                  },
+                  child: Text(userRef.collection('USER_NAME').toString()),
+
+                  // Image.network()
                 )
-                // Image.network()
               ],
             ),
           ),
@@ -141,5 +162,9 @@ class _TestPageState extends State<TestPage> {
     String downloadURL =
         await FirebaseStorage.instance.ref(path).getDownloadURL();
     return downloadURL;
+  }
+
+  getUser() {
+    print(userRef.collection('USER_NAME').toString());
   }
 }

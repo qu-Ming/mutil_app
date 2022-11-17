@@ -24,9 +24,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        // home: BottomNavigator(),
-        // home: TestPage(),
-        home: TestLoginPage());
+      debugShowCheckedModeBanner: false,
+      // home: BottomNavigator(),
+      home: TestPage(),
+      // home: TestLoginPage(),
+    );
   }
 }
