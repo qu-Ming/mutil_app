@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mutil_app/model/chat_model.dart';
 import 'package:mutil_app/model/user_model.dart';
+import 'package:mutil_app/utils/const/app_colors.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({Key? key}) : super(key: key);
@@ -32,6 +32,7 @@ class _TestPageState extends State<TestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backGourndColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -83,12 +84,34 @@ class _TestPageState extends State<TestPage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    print(FirebaseFirestore.instance
-                        .collection("User/user_minh")
-                        .firestore);
+                    print('asd');
                   },
                   child: const Text('Check'),
                 ),
+
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 10.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: AppColors.colorWhite),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text('1'),
+                            Text(
+                                'asssaaaaaaaaaaaaaaaaaaaaaaaaaassssss12321321'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
                 // Image.network()
               ],
             ),
