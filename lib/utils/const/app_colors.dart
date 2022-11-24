@@ -28,4 +28,6 @@ class AppColors {
   static const colorPink2 = Color(0xFFff80ab);
 
   static const colorBrown = Color(0xFFe4a199);
+
+  static const colorBG = Color(0xFFD6E2EA);
 }
