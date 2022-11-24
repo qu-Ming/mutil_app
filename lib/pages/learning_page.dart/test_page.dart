@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mutil_app/model/user_model.dart';
+import 'package:mutil_app/pages/learning_page.dart/next_test_page.dart';
 import 'package:mutil_app/utils/const/app_colors.dart';
 
 class TestPage extends StatefulWidget {
@@ -16,10 +17,18 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   XFile? _image;
-  final storeRef = FirebaseStorage.instance.ref();
-  final userRef =
-      FirebaseFirestore.instance.collection('User').doc('user_minh');
-  //  final docRef = storeRef.child('User').child('path').bucket;
+  final userRef = FirebaseFirestore.instance.collection('User');
+
+  var userM;
+
+  getUSer() {
+    userRef.doc('user_minh').get().then((value) {
+      UserModel userModel = UserModel.fromJson(value);
+      print(userModel.userImgUrl);
+      userM = userModel.userName;
+    });
+  }
+
   openGallary() async {
     _image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (_image == null) {
@@ -33,8 +42,7 @@ class _TestPageState extends State<TestPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    getUser();
+    getUSer();
     super.initState();
   }
 
@@ -127,13 +135,13 @@ class _TestPageState extends State<TestPage> {
                   child: const Text('Đăng ảnh Ngan'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    getUser();
-                  },
-                  child: Text(userRef.collection('USER_NAME').toString()),
-
-                  // Image.network()
-                )
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => const NextPage())));
+                    },
+                    child: const Text('Trang ke'))
               ],
             ),
           ),
@@ -162,9 +170,5 @@ class _TestPageState extends State<TestPage> {
     String downloadURL =
         await FirebaseStorage.instance.ref(path).getDownloadURL();
     return downloadURL;
-  }
-
-  getUser() {
-    print(userRef.collection('USER_NAME').toString());
   }
 }
