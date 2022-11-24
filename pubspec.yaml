@@ -43,6 +43,7 @@ dependencies:
   firebase_storage: ^10.3.11
   path_provider: ^2.0.11
   font_awesome_flutter: ^10.2.1
+  rive: ^0.9.1
 
 
 
@@ -79,6 +80,7 @@ flutter:
   assets:
   - assets/icons/
   - assets/backgrounds/
+  - assets/login/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
