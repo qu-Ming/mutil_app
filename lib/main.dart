@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: BottomNavigator(),
-      home: TestPage(),
-      // home: TestLoginPage(),
+      // home: TestPage(),
+      home: TestLoginPage(),
     );
   }
 }
