@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mutil_app/pages/learning_page.dart/ui_test/test_home_page.dart';
+import 'package:mutil_app/pages/learning_page.dart/ui_test/test_login_page.dart';
 
 import 'firebase_options.dart';
 
