@@ -26,9 +26,10 @@ class _TestLoginPageState extends State<TestLoginPage> {
   SMIInput<bool>? isChecking;
   SMIInput<double>? numLook;
   SMIInput<bool>? isHandsUp;
+  SMIInput<bool>? isShowPass;
 
-  SMIInput<bool>? isSuccess;
-  SMIInput<bool>? isFail;
+  SMIInput<bool>? trigSuccess;
+  SMIInput<bool>? trigFail;
 
   @override
   void initState() {
@@ -54,6 +55,8 @@ class _TestLoginPageState extends State<TestLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    double sizeHeight = MediaQuery.of(context).size.height;
+    // double sizeWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: AppColors.colorBG,
         body: SafeArea(
@@ -63,8 +66,8 @@ class _TestLoginPageState extends State<TestLoginPage> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 275,
-                    width: 275,
+                    height: sizeHeight * 0.4,
+                    width: sizeHeight * 0.4,
                     child: RiveAnimation.asset(
                       'assets/login/login_teddy.riv',
                       fit: BoxFit.fitHeight,
@@ -80,9 +83,10 @@ class _TestLoginPageState extends State<TestLoginPage> {
                         isChecking = controller?.findInput("isChecking");
                         numLook = controller?.findInput("numLook");
                         isHandsUp = controller?.findInput("isHandsUp");
+                        isShowPass = controller?.findInput("isShowPass");
 
-                        isSuccess = controller?.findInput("isSuccess");
-                        isFail = controller?.findInput("isFail");
+                        trigSuccess = controller?.findInput("trigSuccess");
+                        trigFail = controller?.findInput("trigFail");
                       },
                     ),
                   ),
@@ -95,6 +99,7 @@ class _TestLoginPageState extends State<TestLoginPage> {
                     child: Column(
                       children: [
                         LoginTextFieldComponent(
+                          hintText: 'Email',
                           controller: emailController,
                           focusNode: emailFocusNode,
                           onChange: (value) {
@@ -105,23 +110,40 @@ class _TestLoginPageState extends State<TestLoginPage> {
                           height: 12,
                         ),
                         LoginTextFieldComponent(
+                          obscureText: true,
+                          hintText: 'Password',
                           focusNode: passFocusNode,
                           controller: passController,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 24),
-                          height: 50,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: AppColors.colorDarkBlue,
-                              borderRadius: BorderRadius.circular(12)),
-                          child: const Center(
-                              child: TextComponent(
-                            text: 'Login',
-                            fontWeight: FontWeight.w600,
-                            colorText: AppColors.colorWhite,
-                            textSize: AppDimens.textSize_18,
-                          )),
+                        InkWell(
+                          onTap: (() {
+                            emailFocusNode.unfocus();
+                            passFocusNode.unfocus();
+
+                            if (emailController.text.length == 1 &&
+                                passController.text.length == 1) {
+                              print(emailController.text);
+                              trigSuccess?.change(true);
+                            } else {
+                              trigFail?.change(true);
+                              print(passController.text);
+                            }
+                          }),
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 24),
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: AppColors.colorDarkBlue,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: const Center(
+                                child: TextComponent(
+                              text: 'Login',
+                              fontWeight: FontWeight.w600,
+                              colorText: AppColors.colorWhite,
+                              textSize: AppDimens.textSize_18,
+                            )),
+                          ),
                         )
                       ],
                     ),
