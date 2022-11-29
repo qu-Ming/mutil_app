@@ -9,7 +9,8 @@ class LoginTextFieldComponent extends StatelessWidget {
       required this.controller,
       this.focusNode,
       this.onChange,
-      this.obscureText = false})
+      this.obscureText = false,
+      this.suffixIcon})
       : super(key: key);
 
   final String? hintText;
@@ -17,6 +18,7 @@ class LoginTextFieldComponent extends StatelessWidget {
   final FocusNode? focusNode;
   final Function(String)? onChange;
   final bool? obscureText;
+  final Widget? suffixIcon;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,6 +34,7 @@ class LoginTextFieldComponent extends StatelessWidget {
         onChanged: onChange,
         decoration: InputDecoration(
           border: InputBorder.none,
+          suffixIcon: suffixIcon,
           hintText: hintText,
         ),
       ),

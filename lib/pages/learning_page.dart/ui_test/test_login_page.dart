@@ -31,6 +31,8 @@ class _TestLoginPageState extends State<TestLoginPage> {
   SMIInput<bool>? trigSuccess;
   SMIInput<bool>? trigFail;
 
+  bool isHint = true;
+
   @override
   void initState() {
     emailFocusNode.addListener((emailFocus));
@@ -51,6 +53,7 @@ class _TestLoginPageState extends State<TestLoginPage> {
 
   void passFocus() {
     isHandsUp?.change(passFocusNode.hasFocus);
+    isChecking?.change(passFocusNode.hasFocus);
   }
 
   @override
@@ -69,7 +72,8 @@ class _TestLoginPageState extends State<TestLoginPage> {
                     height: sizeHeight * 0.4,
                     width: sizeHeight * 0.4,
                     child: RiveAnimation.asset(
-                      'assets/login/login_teddy.riv',
+                      'assets/login/learning_rive.riv',
+                      // 'assets/login/animated-login-character.riv',
                       fit: BoxFit.fitHeight,
                       stateMachines: const ["Login Machine"],
                       onInit: (artboard) {
@@ -110,10 +114,27 @@ class _TestLoginPageState extends State<TestLoginPage> {
                           height: 12,
                         ),
                         LoginTextFieldComponent(
-                          obscureText: true,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              isHint = !isHint;
+                              if (isHint == false) {
+                                // isChecking?.change(true);
+                                isShowPass?.change(true);
+                              } else {
+                                isShowPass?.change(false);
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.remove_red_eye,
+                            ),
+                          ),
+                          obscureText: isHint,
                           hintText: 'Password',
                           focusNode: passFocusNode,
                           controller: passController,
+                          // onChange: (value) {
+                          //   numLook?.change(value.length.toDouble());
+                          // },
                         ),
                         InkWell(
                           onTap: (() {
@@ -122,11 +143,9 @@ class _TestLoginPageState extends State<TestLoginPage> {
 
                             if (emailController.text.length == 1 &&
                                 passController.text.length == 1) {
-                              print(emailController.text);
                               trigSuccess?.change(true);
                             } else {
                               trigFail?.change(true);
-                              print(passController.text);
                             }
                           }),
                           child: Container(
@@ -144,7 +163,7 @@ class _TestLoginPageState extends State<TestLoginPage> {
                               textSize: AppDimens.textSize_18,
                             )),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   )
